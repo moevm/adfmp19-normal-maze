@@ -1,0 +1,34 @@
+
+unnamed.png
+size: 2048,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+btn
+  rotate: false
+  xy: 468, 2
+  size: 464, 139
+  orig: 464, 139
+  offset: 0, 0
+  index: -1
+checked-button
+  rotate: false
+  xy: 2, 2
+  size: 464, 139
+  orig: 464, 139
+  offset: 0, 0
+  index: -1
+down-button
+  rotate: false
+  xy: 1400, 2
+  size: 464, 139
+  orig: 464, 139
+  offset: 0, 0
+  index: -1
+up-button
+  rotate: false
+  xy: 934, 2
+  size: 464, 139
+  orig: 464, 139
+  offset: 0, 0
+  index: -1
