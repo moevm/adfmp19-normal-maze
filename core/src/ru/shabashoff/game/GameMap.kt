@@ -19,6 +19,7 @@ class GameMap {
     private val w: Int
     private val h: Int
 
+    private val padding: Float = 1.0f
 
     constructor(w: Int, h: Int, widthMap: Float, heightMap: Float, paddingX: Float, paddingY: Float) {
         this.w = w
@@ -28,19 +29,19 @@ class GameMap {
         this.heightMap = heightMap
         this.widthMap = widthMap
 
-        this.widthElem = widthMap / w.toFloat()
-        this.heightElem = heightMap / h.toFloat()
+        this.widthElem = (widthMap / w.toFloat()) - padding
+        this.heightElem = (heightMap / h.toFloat()) - padding
 
-        map = Array(h) { i -> Array(w) { j -> GameCell(getRandType(), Point(convertX(i), convertY(j))) } }
+        map = Array(h) { i -> Array(w) { j -> GameCell(getRandType(), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
         map.forEach { arr -> arr.forEach { c -> UiUtils.getStage().addActor(c) } }
     }
 
     private fun convertX(x: Int): Float {
-        return paddingX + widthElem * x.toFloat()
+        return paddingX + (widthElem + padding) * x.toFloat()
     }
 
     private fun convertY(y: Int): Float {
-        return paddingY + heightElem * y.toFloat()
+        return paddingY + (heightElem + padding) * y.toFloat()
     }
 
 

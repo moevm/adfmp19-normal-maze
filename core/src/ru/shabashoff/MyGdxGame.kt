@@ -15,7 +15,6 @@ import ru.shabashoff.ui.UiUtils
 class MyGdxGame : ApplicationAdapter() {
     lateinit var menuPainter: MenuPainter
 
-    private lateinit var cells: List<GameCell>
     private lateinit var stage: Stage
     private lateinit var map: GameMap
 
@@ -30,13 +29,7 @@ class MyGdxGame : ApplicationAdapter() {
 
         menuPainter = MenuPainter()
 
-        cells = arrayListOf(GameCell(GameCellType.UL, Point(1.0f, 20.0f)), GameCell(GameCellType.CROSSING, Point(100.0f, 200.0f)))
-
-        for (cell in cells) {
-            stage.addActor(cell)
-        }
-
-        map = GameMap(5, 5, 500.0f, 500.0f, 100.0f, 100.0f)
+        map = GameMap(5, 5, 300.0f, 300.0f, 100.0f, 100.0f)
     }
 
     override fun render() {
