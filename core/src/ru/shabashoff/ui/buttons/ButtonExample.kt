@@ -58,8 +58,4 @@ class ButtonExample : Game {
         button.remove()
     }
 
-    override fun render() {
-        super.render()
-        stage.draw()
-    }
 }
