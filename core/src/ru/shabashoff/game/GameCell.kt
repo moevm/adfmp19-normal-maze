@@ -1,6 +1,5 @@
 package ru.shabashoff.game
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.Action
@@ -11,7 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import ru.shabashoff.primitives.Point
 
 
-class GameCell(val type: GameCellType, val point: Point, val w: Float, val h: Float) : Actor() {
+class GameCell(private val type: GameCellType, private val point: Point, private val w: Float, private val h: Float) : Actor() {
+
+    internal var isDraggable: Boolean = false
 
     private var sprite: Sprite = type.getSprite()
 
@@ -27,34 +28,25 @@ class GameCell(val type: GameCellType, val point: Point, val w: Float, val h: Fl
 
         addListener(object : ClickListener() {
             override fun touchDragged(event: InputEvent?, x: Float, y: Float, pointer: Int) {
-                println("""DRAG x: $x y: $y predTouch: $predTouch isClick: ${isClick()}""")
+                if (!isDraggable) return
 
-                if (predTouch != null && !isClick()) {
+                predTouch = if (predTouch != null) {
                     val dx = x - predTouch!!.x
                     val dy = y - predTouch!!.y
 
                     moveBy(dx, dy)
 
-                    predTouch = Point(x - dx, y - dy)
+                    Point(x - dx, y - dy)
                 } else {
-                    predTouch = Point(x, y)
+                    Point(x, y)
                 }
 
-
+                GameUtils.curGameSession?.onDrag(this@GameCell)
                 super.touchDragged(event, x, y, pointer)
             }
 
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
-
-                if (clickTime != 0L) {
-                    Gdx.app.debug("Clicking error", "Click time is: $clickTime")
-                }
-
-
-                println("DOWN")
-
                 clickTime = System.currentTimeMillis()
-
                 return true
             }
 
@@ -63,9 +55,10 @@ class GameCell(val type: GameCellType, val point: Point, val w: Float, val h: Fl
                 if (isClick()) {
                     println("Is click")
                 }
-                println("UP")
+
                 predTouch = null
                 clickTime = 0L
+
                 super.touchUp(event, x, y, pointer, button)
             }
         })
@@ -87,5 +80,9 @@ class GameCell(val type: GameCellType, val point: Point, val w: Float, val h: Fl
     override fun addAction(action: Action?) {
         print("Action: $action")
         super.addAction(action)
+    }
+
+    fun getCenter(): Point {
+        return Point(x + w / 2f, y + h / 2f)
     }
 }

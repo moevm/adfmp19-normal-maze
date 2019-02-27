@@ -7,6 +7,8 @@ import ru.shabashoff.ui.UiUtils
 class GameMap {
     private val map: Array<Array<GameCell>>
 
+    private val outerCell: GameCell
+
     private val widthMap: Float
     private val heightMap: Float
 
@@ -34,6 +36,10 @@ class GameMap {
 
         map = Array(h) { i -> Array(w) { j -> GameCell(getRandType(), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
         map.forEach { arr -> arr.forEach { c -> UiUtils.getStage().addActor(c) } }
+
+        outerCell = GameCell(getRandType(), Point(0f, 0f), widthElem, heightElem)
+        UiUtils.getStage().addActor(outerCell)
+        outerCell.isDraggable = true
     }
 
     private fun convertX(x: Int): Float {
@@ -49,4 +55,11 @@ class GameMap {
         val i = random.nextInt(GameCellType.values().size)
         return GameCellType.values()[i]
     }
+
+    fun onDrag(cell: GameCell) {
+        val center = cell.getCenter()
+
+        TODO("Add implementation")
+    }
+
 }

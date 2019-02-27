@@ -13,6 +13,4 @@ object GameUtils {
         this.width = Gdx.graphics.width.toFloat()
         this.height = Gdx.graphics.height.toFloat()
     }
-
-
 }
