@@ -1,5 +1,7 @@
 package ru.shabashoff.primitives
 
-class Point(var y: Float, var x: Float) {
-
+class Point(var x: Float, var y: Float) {
+    override fun toString(): String {
+        return "Point(x=$x, y=$y)"
+    }
 }

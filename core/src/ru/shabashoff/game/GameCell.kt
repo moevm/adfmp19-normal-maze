@@ -17,15 +17,30 @@ class GameCell(val type: GameCellType, val point: Point, val w: Float, val h: Fl
 
     private var clickTime: Long = 0L
 
+    private var predTouch: Point? = null
 
     init {
         sprite.setBounds(point.x, point.y, w, h)
         setBounds(sprite.x, sprite.y, sprite.width, sprite.height)
+
         touchable = Touchable.enabled
 
         addListener(object : ClickListener() {
             override fun touchDragged(event: InputEvent?, x: Float, y: Float, pointer: Int) {
-                println("DRAG")
+                println("""DRAG x: $x y: $y predTouch: $predTouch isClick: ${isClick()}""")
+
+                if (predTouch != null && !isClick()) {
+                    val dx = x - predTouch!!.x
+                    val dy = y - predTouch!!.y
+
+                    moveBy(dx, dy)
+
+                    predTouch = Point(x - dx, y - dy)
+                } else {
+                    predTouch = Point(x, y)
+                }
+
+
                 super.touchDragged(event, x, y, pointer)
             }
 
@@ -35,29 +50,34 @@ class GameCell(val type: GameCellType, val point: Point, val w: Float, val h: Fl
                     Gdx.app.debug("Clicking error", "Click time is: $clickTime")
                 }
 
-                clickTime = System.currentTimeMillis()
+
                 println("DOWN")
+
+                clickTime = System.currentTimeMillis()
 
                 return true
             }
 
 
             override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
-                if (System.currentTimeMillis() - clickTime < 250L) {
+                if (isClick()) {
                     println("Is click")
                 }
                 println("UP")
+                predTouch = null
                 clickTime = 0L
-
                 super.touchUp(event, x, y, pointer, button)
             }
         })
 
     }
 
+    fun isClick(): Boolean {
+        return System.currentTimeMillis() - clickTime < 250L
+    }
+
     override fun positionChanged() {
         sprite.setPosition(x, y)
-        super.positionChanged()
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
