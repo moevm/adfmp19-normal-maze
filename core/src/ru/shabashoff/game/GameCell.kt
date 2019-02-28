@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import ru.shabashoff.primitives.Point
 
 
-class GameCell(private val type: GameCellType, private val point: Point, private val w: Float, private val h: Float) : Actor() {
+class GameCell(private val type: GameCellType, point: Point, private val w: Float, private val h: Float) : Actor() {
 
     internal var isDraggable: Boolean = false
 
@@ -52,8 +52,12 @@ class GameCell(private val type: GameCellType, private val point: Point, private
 
 
             override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
-                if (isClick()) {
+                if (!isDraggable && isClick()) {
                     println("Is click")
+                }
+
+                if (predTouch != null) {
+                    GameUtils.curGameSession?.onPut(this@GameCell)
                 }
 
                 predTouch = null
@@ -84,5 +88,9 @@ class GameCell(private val type: GameCellType, private val point: Point, private
 
     fun getCenter(): Point {
         return Point(x + w / 2f, y + h / 2f)
+    }
+
+    override fun toString(): String {
+        return "GameCell(type=$type, point=($x,$y), w=$w, h=$h, isDraggable=$isDraggable)"
     }
 }
