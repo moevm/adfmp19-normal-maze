@@ -158,7 +158,7 @@ class GameMap {
 
         outerCell = if (y == 0) {
             line.add(0, outerCell)
-            line.removeAt(h - 1)
+            line.removeAt(h)
         } else {
             line.add(outerCell)
             line.removeAt(0)
@@ -173,8 +173,7 @@ class GameMap {
 
     private fun outerToPoint() {
         outerCell.zIndex = 1000
-        outerCell.x = 0f
-        outerCell.y = 0f
+        outerCell.moveWithAnimation(Point(0f, 0f))
         outerCell.isDraggable = true
     }
 }

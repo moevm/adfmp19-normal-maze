@@ -1,5 +1,6 @@
 package ru.shabashoff.game
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.Action
@@ -12,6 +13,8 @@ import ru.shabashoff.primitives.Point
 
 class GameCell(private val type: GameCellType, point: Point, private val w: Float, private val h: Float) : Actor() {
 
+    private val ANIMATE_DURATION = 500f
+
     internal var isDraggable: Boolean = false
 
     private var sprite: Sprite = type.getSprite()
@@ -19,6 +22,8 @@ class GameCell(private val type: GameCellType, point: Point, private val w: Floa
     private var clickTime: Long = 0L
 
     private var predTouch: Point? = null
+
+    private val animation: ru.shabashoff.animation.Animation = ru.shabashoff.animation.Animation(this)
 
     init {
         sprite.setBounds(point.x, point.y, w, h)
@@ -88,6 +93,22 @@ class GameCell(private val type: GameCellType, point: Point, private val w: Floa
 
     fun getCenter(): Point {
         return Point(x + w / 2f, y + h / 2f)
+    }
+
+    fun moveWithAnimation(point: Point) {
+        animation.animateMove(ANIMATE_DURATION, point)
+    }
+
+    fun animateFlashing() {
+        animation.animateFlashing(ANIMATE_DURATION, 0.01f)
+    }
+
+    override fun setColor(color: Color?) {
+        sprite.color = color
+    }
+
+    override fun setColor(r: Float, g: Float, b: Float, a: Float) {
+        sprite.color = color
     }
 
     override fun toString(): String {
