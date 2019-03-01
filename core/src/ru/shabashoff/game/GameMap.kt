@@ -141,7 +141,7 @@ class GameMap {
 
         for (i in 0 until w) {
             map[i][y].setPosition(convertX(i), convertY(y))
-
+            map[i][y].animateFlashing()
         }
         outerToPoint()
     }
@@ -166,6 +166,7 @@ class GameMap {
 
         for (i in 0 until h) {
             line[i].setPosition(convertX(x), convertY(i))
+            line[i].animateFlashing()
         }
 
         outerToPoint()

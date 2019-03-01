@@ -100,7 +100,11 @@ class GameCell(private val type: GameCellType, point: Point, private val w: Floa
     }
 
     fun animateFlashing() {
-        animation.animateFlashing(ANIMATE_DURATION, 0.01f)
+        animation.animateFlashing(ANIMATE_DURATION, 0.012f)
+    }
+
+    fun animateAppearance() {
+        animation.animateAppearance(ANIMATE_DURATION)
     }
 
     override fun setColor(color: Color?) {
