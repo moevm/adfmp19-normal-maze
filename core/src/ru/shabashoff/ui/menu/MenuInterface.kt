@@ -1,9 +1,9 @@
 package ru.shabashoff.ui.menu
 
-import ru.shabashoff.ui.buttons.ButtonExample
+import ru.shabashoff.ui.buttons.DefaultButton
 
 abstract class MenuInterface {
-    val settingButton: ButtonExample? = null
+    val settingDefaultButton: DefaultButton? = null
 
     constructor()
 

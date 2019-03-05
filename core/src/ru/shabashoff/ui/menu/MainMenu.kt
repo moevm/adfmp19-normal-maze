@@ -1,15 +1,15 @@
 package ru.shabashoff.ui.menu
 
-import ru.shabashoff.ui.buttons.ButtonExample
+import ru.shabashoff.ui.buttons.DefaultButton
 
 class MainMenu : MenuInterface {
 
-    private val game: ButtonExample
-    private val rules: ButtonExample
+    private val game: DefaultButton
+    private val rules: DefaultButton
 
     constructor(mp: MenuPainter) {
-        game = ButtonExample(0.5f, 0.65f, 0.2f, 0.2f, "Game") { mp.testGame() }
-        rules = ButtonExample(0.5f, 0.35f, 0.2f, 0.2f, "Rules") { mp.rules() }
+        game = DefaultButton(0.5f, 0.60f, 0.2f, 0.1f, "Game") { mp.testGame() }
+        rules = DefaultButton(0.5f, 0.4f, 0.2f, 0.1f, "Rules") { mp.rules() }
 
         rules.create()
         game.create()

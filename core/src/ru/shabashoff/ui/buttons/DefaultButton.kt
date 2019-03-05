@@ -1,17 +1,14 @@
 package ru.shabashoff.ui.buttons
 
 import com.badlogic.gdx.Game
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import ru.shabashoff.ui.UiUtils
 
 
-class ButtonExample : Game {
+open class DefaultButton : Game {
 
-    private lateinit var stage: Stage
     private lateinit var button: TextButton
 
     private var x: Float
@@ -36,21 +33,23 @@ class ButtonExample : Game {
 
     @Override
     override fun create() {
-        stage = Gdx.input.inputProcessor as Stage
-
-        button = TextButton(text, UiUtils.btnDefaultStyle)
+        button = TextButton(text, getButtonStyle())
 
         button.x = x
         button.y = y
         button.width = width
         button.height = height
 
-        stage.addActor(button)
+        UiUtils.getStage().addActor(button)
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
                 onclick.invoke()
             }
         })
+    }
+
+    open fun getButtonStyle(): TextButton.TextButtonStyle {
+        return UiUtils.btnDefaultStyle
     }
 
     override fun dispose() {

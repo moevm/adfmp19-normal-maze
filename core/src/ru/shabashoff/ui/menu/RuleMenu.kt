@@ -1,14 +1,14 @@
 package ru.shabashoff.ui.menu
 
-import ru.shabashoff.ui.buttons.ButtonExample
+import ru.shabashoff.ui.buttons.DefaultButton
 
 class RuleMenu : MenuInterface {
 
-    var back: ButtonExample
+    var back: DefaultButton
 
 
     constructor(mp: MenuPainter) {
-        back = ButtonExample(0.5f, 0.5f, 0.2f, 0.1f, "Back") { mp.mainMenu() }
+        back = DefaultButton(0.5f, 0.5f, 0.2f, 0.1f, "Back") { mp.mainMenu() }
         back.create()
     }
 
