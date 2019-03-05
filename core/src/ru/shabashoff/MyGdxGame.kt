@@ -4,13 +4,12 @@ import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.Stage
-import ru.shabashoff.game.GameSession
 import ru.shabashoff.game.GameUtils
 import ru.shabashoff.ui.UiUtils
 import ru.shabashoff.ui.menu.MenuPainter
 
 class MyGdxGame : ApplicationAdapter() {
-    lateinit var menuPainter: MenuPainter
+    private lateinit var menuPainter: MenuPainter
 
     private lateinit var stage: Stage
 
@@ -25,14 +24,14 @@ class MyGdxGame : ApplicationAdapter() {
 
         menuPainter = MenuPainter()
 
-        GameUtils.curGameSession = GameSession()
+        UiUtils.menuPainter = menuPainter
     }
 
     override fun render() {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        //super.render()
+        super.render()
         stage.draw()
     }
 

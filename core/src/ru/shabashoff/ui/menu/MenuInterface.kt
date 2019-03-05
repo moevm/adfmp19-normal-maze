@@ -1,8 +1,13 @@
 package ru.shabashoff.ui.menu
 
-interface MenuInterface {
+import ru.shabashoff.ui.buttons.ButtonExample
 
-    fun paint()
-    fun dispose()
+abstract class MenuInterface {
+    val settingButton: ButtonExample? = null
+
+    constructor()
+
+    abstract fun paint()
+    abstract fun dispose()
 
 }

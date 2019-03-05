@@ -1,0 +1,48 @@
+
+btns.png
+size: 1024,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+BUTTON
+  rotate: false
+  xy: 2, 3
+  size: 190, 49
+  orig: 190, 49
+  offset: 0, 0
+  index: -1
+BUTTON_PRESSED
+  rotate: false
+  xy: 194, 7
+  size: 190, 45
+  orig: 190, 45
+  offset: 0, 0
+  index: -1
+BUTTON_SMALL
+  rotate: false
+  xy: 490, 3
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+BUTTON_SMALL_PRESSED
+  rotate: false
+  xy: 541, 7
+  size: 49, 45
+  orig: 49, 45
+  offset: 0, 0
+  index: -1
+PAUSE
+  rotate: false
+  xy: 386, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+SETTINGS
+  rotate: false
+  xy: 438, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1

@@ -1,45 +1,43 @@
 package ru.shabashoff.ui
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Pixmap
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable
+import ru.shabashoff.ui.menu.MenuPainter
 
 object UiUtils {
+
+    private val routesSkin: Skin = Skin()
 
     private var width: Float = 0.0f
     private var height: Float = 0.0f
 
-    lateinit var btnExampleStyle: TextButton.TextButtonStyle
+    lateinit var btnDefaultStyle: TextButton.TextButtonStyle
 
-    private val routesSkin: Skin = Skin()
+    var menuPainter: MenuPainter? = null
 
 
     fun init() {
         this.width = Gdx.graphics.width.toFloat()
         this.height = Gdx.graphics.height.toFloat()
 
-        val routesTextureAtlas = TextureAtlas(Gdx.files.internal("routes/routes.atlas"))
+        val routesTextureAtlas = TextureAtlas(Gdx.files.internal("routes.atlas"))
         routesSkin.addRegions(routesTextureAtlas)
 
-        val buttonAtlasExample = TextureAtlas(Gdx.files.internal("btns/unnamed.atlas"))
-        val btnSkinExample = Skin()
-        val buttonExampleFont = BitmapFont()
-        btnSkinExample.addRegions(buttonAtlasExample)
+        val buttonDefaultAtlas = TextureAtlas(Gdx.files.internal("btns.atlas"))
+        val btnDefaultSkin = Skin()
+        val buttonDefaultFont = BitmapFont()
+        btnDefaultSkin.addRegions(buttonDefaultAtlas)
 
-        btnExampleStyle = TextButton.TextButtonStyle()
+        btnDefaultStyle = TextButton.TextButtonStyle()
 
-        btnExampleStyle.font = buttonExampleFont
-        btnExampleStyle.up = btnSkinExample.getDrawable("up-button")
-        btnExampleStyle.down = btnSkinExample.getDrawable("down-button")
-        btnExampleStyle.checked = btnSkinExample.getDrawable("checked-button")
+        btnDefaultStyle.font = buttonDefaultFont
+        btnDefaultStyle.up = btnDefaultSkin.getDrawable("BUTTON")
+        btnDefaultStyle.down = btnDefaultSkin.getDrawable("BUTTON_PRESSED")
     }
 
     fun getAbsoluteX(x: Float, w: Float): Float {

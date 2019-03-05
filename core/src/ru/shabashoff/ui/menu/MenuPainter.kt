@@ -14,6 +14,12 @@ class MenuPainter {
         paint()
     }
 
+    fun testGame() {
+        dispose()
+        curMenu = GameMenu()
+        paint()
+    }
+
     fun rules() {
         dispose()
         curMenu = RuleMenu(this)

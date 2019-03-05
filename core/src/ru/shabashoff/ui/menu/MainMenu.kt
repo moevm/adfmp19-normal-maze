@@ -4,11 +4,11 @@ import ru.shabashoff.ui.buttons.ButtonExample
 
 class MainMenu : MenuInterface {
 
-    private var game: ButtonExample
-    private var rules: ButtonExample
+    private val game: ButtonExample
+    private val rules: ButtonExample
 
     constructor(mp: MenuPainter) {
-        game = ButtonExample(0.5f, 0.65f, 0.2f, 0.2f, "Game") {}
+        game = ButtonExample(0.5f, 0.65f, 0.2f, 0.2f, "Game") { mp.testGame() }
         rules = ButtonExample(0.5f, 0.35f, 0.2f, 0.2f, "Rules") { mp.rules() }
 
         rules.create()

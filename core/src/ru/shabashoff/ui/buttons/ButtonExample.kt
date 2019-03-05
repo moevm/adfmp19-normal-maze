@@ -38,7 +38,7 @@ class ButtonExample : Game {
     override fun create() {
         stage = Gdx.input.inputProcessor as Stage
 
-        button = TextButton(text, UiUtils.btnExampleStyle)
+        button = TextButton(text, UiUtils.btnDefaultStyle)
 
         button.x = x
         button.y = y
