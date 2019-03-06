@@ -1,11 +1,14 @@
 package ru.shabashoff.ui.menu
 
-import ru.shabashoff.ui.buttons.DefaultTextButton
+import ru.shabashoff.ui.UiUtils
+import ru.shabashoff.ui.buttons.DefaultSkinButton
 
 abstract class MenuInterface {
-    val settingDefaultTextButton: DefaultTextButton? = null
+    private val settingButton: DefaultSkinButton = DefaultSkinButton(0.9f, 0.9f, 0.07f, 0.07f, UiUtils.getIconSprite("SETTINGS")) {}
 
-    constructor()
+    init {
+        settingButton.makeSquare()
+    }
 
     abstract fun dispose()
 }

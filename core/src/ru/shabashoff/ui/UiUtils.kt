@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
@@ -12,11 +13,13 @@ import ru.shabashoff.ui.menu.MenuPainter
 object UiUtils {
 
     private val routesSkin: Skin = Skin()
+    private val btnDefaultSkin: Skin = Skin()
 
     private var width: Float = 0.0f
     private var height: Float = 0.0f
 
     lateinit var btnDefaultStyle: TextButton.TextButtonStyle
+
 
     var menuPainter: MenuPainter? = null
 
@@ -29,12 +32,11 @@ object UiUtils {
         routesSkin.addRegions(routesTextureAtlas)
 
         val buttonDefaultAtlas = TextureAtlas(Gdx.files.internal("btns.atlas"))
-        val btnDefaultSkin = Skin()
-        val buttonDefaultFont = BitmapFont()
         btnDefaultSkin.addRegions(buttonDefaultAtlas)
 
         btnDefaultStyle = TextButton.TextButtonStyle()
 
+        val buttonDefaultFont = BitmapFont()
         btnDefaultStyle.font = buttonDefaultFont
         btnDefaultStyle.up = btnDefaultSkin.getDrawable("BUTTON")
         btnDefaultStyle.down = btnDefaultSkin.getDrawable("BUTTON_PRESSED")
@@ -62,5 +64,17 @@ object UiUtils {
 
     fun getStage(): Stage {
         return Gdx.input.inputProcessor as Stage
+    }
+
+    fun getIconSprite(name: String): Sprite {
+        return Sprite(btnDefaultSkin.getSprite(name))
+    }
+
+    fun setPercentBounds(x: Float, y: Float, w: Float, h: Float, actor: Actor) {
+        actor.setBounds(getAbsoluteX(x, w), getAbsoluteY(y, h), getAbsoluteWidthPoint(w), getAbsoluteHeightPoint(h))
+    }
+
+    fun setPercentPosition(x: Float, y: Float, w: Float, h: Float, actor: Actor) {
+        actor.setPosition(getAbsoluteX(x, w), getAbsoluteY(y, h))
     }
 }
