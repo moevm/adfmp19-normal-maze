@@ -1,28 +1,19 @@
 package ru.shabashoff.ui.menu
 
-import ru.shabashoff.ui.buttons.DefaultButton
+import ru.shabashoff.ui.buttons.DefaultTextButton
 
 class MainMenu : MenuInterface {
 
-    private val game: DefaultButton
-    private val rules: DefaultButton
+    private val game: DefaultTextButton
+    private val rules: DefaultTextButton
 
     constructor(mp: MenuPainter) {
-        game = DefaultButton(0.5f, 0.60f, 0.2f, 0.1f, "Game") { mp.testGame() }
-        rules = DefaultButton(0.5f, 0.4f, 0.2f, 0.1f, "Rules") { mp.rules() }
-
-        rules.create()
-        game.create()
-
-    }
-
-    override fun paint() {
-        game.render()
-        rules.render()
+        game = DefaultTextButton(0.5f, 0.60f, 0.2f, 0.1f, "Game") { mp.testGame() }
+        rules = DefaultTextButton(0.5f, 0.4f, 0.2f, 0.1f, "Rules") { mp.rules() }
     }
 
     override fun dispose() {
-        game.dispose()
-        rules.dispose()
+        game.remove()
+        rules.remove()
     }
 }

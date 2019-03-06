@@ -9,8 +9,6 @@ class GameMenu : MenuInterface() {
         GameUtils.curGameSession = GameSession()
     }
 
-    override fun paint() {
-    }
 
     override fun dispose() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
