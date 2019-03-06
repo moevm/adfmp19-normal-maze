@@ -1,10 +1,11 @@
 package ru.shabashoff.ui.menu
 
+import ru.shabashoff.ui.UiUtils
 import ru.shabashoff.ui.buttons.DefaultTextButton
 
-class RuleMenu(mp: MenuPainter) : MenuInterface() {
+class RuleMenu : MenuInterface() {
 
-    var back: DefaultTextButton = DefaultTextButton(0.5f, 0.5f, 0.2f, 0.1f, "Back") { mp.mainMenu() }
+    var back: DefaultTextButton = DefaultTextButton(0.5f, 0.5f, 0.2f, 0.1f, "Back") { UiUtils.menuPainter?.mainMenu() }
 
 
     override fun dispose() {

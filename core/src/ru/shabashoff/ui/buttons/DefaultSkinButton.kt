@@ -16,12 +16,15 @@ class DefaultSkinButton(x: Float, y: Float, width: Float, height: Float, private
         this.y = UiUtils.getAbsoluteY(y, height)
         this.width = UiUtils.getAbsoluteWidthPoint(width)
         this.height = UiUtils.getAbsoluteHeightPoint(height)
-        //sprite.setBounds(this.x, this.y, this.width, this.height)
+
+        sprite.setBounds(this.x, this.y, this.width, this.height)
+
         addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
                 onclick.invoke()
             }
         })
+
         UiUtils.getStage().addActor(this)
     }
 
