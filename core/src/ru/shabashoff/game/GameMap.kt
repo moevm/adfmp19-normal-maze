@@ -65,13 +65,15 @@ class GameMap {
         return GameCellType.values()[i]
     }
 
-    fun onDrag(cell: GameCell) {
-        val center = cell.getCenter()
+    fun onDrag(cell: GameCell, x: Float, y: Float) {
+        /*val center = cell.getCenter()
 
         if (isPointOnMap(center)) {
             /*println("Cell out of the map: $cell")
             println("Expected cell (${deConvertX(center.x)},${deConvertY(center.y)})")*/
-        }
+        }*/
+
+        cell.onDrag(x, y)
 
         //TODO Add implementation
     }
@@ -143,7 +145,7 @@ class GameMap {
             map[i][y].moveWithAnimation(Point(convertX(i), convertY(y)))
             //map[i][y].animateFlashing()
         }
-        outerToPoint()
+        afterMove()
     }
 
     private fun moveYLine(x: Int, y: Int) {
@@ -169,7 +171,13 @@ class GameMap {
             //line[i].animateFlashing()
         }
 
+        afterMove()
+    }
+
+
+    private fun afterMove() {
         outerToPoint()
+        GameUtils.curGameSession?.afterPut()
     }
 
     private fun outerToPoint() {

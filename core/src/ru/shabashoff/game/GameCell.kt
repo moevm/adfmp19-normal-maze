@@ -21,7 +21,7 @@ class GameCell(private val type: GameCellType, point: Point, private val w: Floa
 
     private var clickTime: Long = 0L
 
-    private var predTouch: Point? = null
+    private var lastTouch: Point? = null
 
     private val animation: ru.shabashoff.animation.Animation = ru.shabashoff.animation.Animation(this)
 
@@ -35,19 +35,7 @@ class GameCell(private val type: GameCellType, point: Point, private val w: Floa
             override fun touchDragged(event: InputEvent?, x: Float, y: Float, pointer: Int) {
                 if (!isDraggable) return
 
-                predTouch = if (predTouch != null) {
-                    val dx = x - predTouch!!.x
-                    val dy = y - predTouch!!.y
-
-                    moveBy(dx, dy)
-
-                    Point(x - dx, y - dy)
-                } else {
-                    Point(x, y)
-                }
-
-                GameUtils.curGameSession?.onDrag(this@GameCell)
-                super.touchDragged(event, x, y, pointer)
+                GameUtils.curGameSession?.onDrag(this@GameCell, x, y)
             }
 
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
@@ -58,20 +46,35 @@ class GameCell(private val type: GameCellType, point: Point, private val w: Floa
 
             override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
                 if (!isDraggable && isClick()) {
-                    println("Is click")
+                    GameUtils.curGameSession?.onClick(this@GameCell)
                 }
 
-                if (predTouch != null) {
+                if (lastTouch != null) {
                     GameUtils.curGameSession?.onPut(this@GameCell)
                 }
 
-                predTouch = null
+                lastTouch = null
                 clickTime = 0L
 
                 super.touchUp(event, x, y, pointer, button)
             }
         })
 
+    }
+
+    fun onDrag(x: Float, y: Float) {
+        if (!isDraggable) return
+
+        lastTouch = if (lastTouch != null) {
+            val dx = x - lastTouch!!.x
+            val dy = y - lastTouch!!.y
+
+            moveBy(dx, dy)
+
+            Point(x - dx, y - dy)
+        } else {
+            Point(x, y)
+        }
     }
 
     fun isClick(): Boolean {

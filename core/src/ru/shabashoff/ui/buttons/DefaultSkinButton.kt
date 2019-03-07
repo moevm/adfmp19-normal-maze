@@ -42,8 +42,9 @@ class DefaultSkinButton(x: Float, y: Float, width: Float, height: Float, private
         super.positionChanged()
     }
 
+    @Suppress("UNNECESSARY_SAFE_CALL")
     override fun sizeChanged() {
-        sprite.setBounds(this.x, this.y, this.width, this.height)
+        sprite?.setBounds(this.x, this.y, this.width, this.height)
         super.sizeChanged()
     }
 
