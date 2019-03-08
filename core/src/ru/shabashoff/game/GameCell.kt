@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import ru.shabashoff.primitives.Point
 
 
-class GameCell(private val type: GameCellType, point: Point, private val w: Float, private val h: Float) : Actor() {
+class GameCell(val type: GameCellType, point: Point, private val w: Float, private val h: Float) : Actor() {
 
     private val ANIMATE_DURATION = 500f
 

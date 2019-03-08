@@ -5,19 +5,23 @@ import ru.shabashoff.game.players.Player
 import ru.shabashoff.game.players.RealPlayer
 
 class GameSession {
-    private val players: List<Player> = listOf(RealPlayer(0, 0), Bot(3, 3))
+
     val map: GameMap = GameMap(4, 4, 300.0f, 300.0f, 100.0f, 100.0f)
 
-    private var curNumPlayer: Int = 0
-    private var curPlayer: Player
+    private lateinit var players: List<Player>
+    private lateinit var curPlayer: Player
 
-    init {
+    private var curNumPlayer: Int = 0
+
+    fun loadPlayers() {
+        players = listOf(RealPlayer(0, 0), Bot(3, 3))
         curPlayer = players[0]
     }
 
     fun onClick(cell: GameCell) {
-        if (curPlayer.isBot()) return
+        //if (curPlayer.isBot()) return
 
+        map.onClick(cell)
     }
 
     fun onDrag(cell: GameCell, x: Float, y: Float) {

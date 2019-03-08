@@ -2,6 +2,7 @@ package ru.shabashoff.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils.random
+import ru.shabashoff.primitives.IntPoint
 import ru.shabashoff.primitives.Point
 import ru.shabashoff.ui.UiUtils
 
@@ -50,11 +51,11 @@ class GameMap {
         outerCell.isDraggable = true
     }
 
-    private fun convertX(x: Int): Float {
+    fun convertX(x: Int): Float {
         return paddingX + (widthElem + padding) * x.toFloat()
     }
 
-    private fun convertY(y: Int): Float {
+    fun convertY(y: Int): Float {
         return paddingY + (heightElem + padding) * y.toFloat()
     }
 
@@ -87,6 +88,12 @@ class GameMap {
 
     private fun isPointOnMap(p: Point): Boolean {
         return !(p.x < paddingX || p.y < paddingY || p.x > paddingX + widthMap || p.y > paddingY + heightMap)
+    }
+
+    fun onClick(cell: GameCell) {
+        var center = cell.getCenter()
+
+        println(IntPoint(deConvertX(center.x), deConvertY(center.y)))
     }
 
     fun onPut(cell: GameCell) {

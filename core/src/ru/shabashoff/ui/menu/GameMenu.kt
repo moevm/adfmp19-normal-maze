@@ -7,6 +7,7 @@ class GameMenu : MenuInterface() {
 
     init {
         GameUtils.curGameSession = GameSession()
+        GameUtils.curGameSession!!.loadPlayers()
     }
 
 

@@ -15,6 +15,8 @@ object UiUtils {
     private val routesSkin: Skin = Skin()
     private val btnDefaultSkin: Skin = Skin()
 
+    private val sprites: MutableList<Sprite> = ArrayList()
+
     private var width: Float = 0.0f
     private var height: Float = 0.0f
 
@@ -68,6 +70,14 @@ object UiUtils {
 
     fun getIconSprite(name: String): Sprite {
         return Sprite(btnDefaultSkin.getSprite(name))
+    }
+
+    fun addSprite(sprite: Sprite) {
+        sprites.add(sprite)
+    }
+
+    fun getSprites(): List<Sprite> {
+        return sprites
     }
 
     fun setPercentBounds(x: Float, y: Float, w: Float, h: Float, actor: Actor) {
