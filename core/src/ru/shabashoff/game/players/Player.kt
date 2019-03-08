@@ -1,7 +1,9 @@
 package ru.shabashoff.game.players
 
-interface Player {
+abstract class Player(var x: Int, var y: Int) {//TODO extend Actor
 
-    fun move()
-    fun isBot(): Boolean
+    abstract fun move()
+    abstract fun isBot(): Boolean
+
+
 }

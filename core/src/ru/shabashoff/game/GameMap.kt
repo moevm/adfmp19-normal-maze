@@ -6,8 +6,7 @@ import ru.shabashoff.primitives.Point
 import ru.shabashoff.ui.UiUtils
 
 class GameMap {
-    private val map: MutableList<MutableList<GameCell>>
-
+    val map: MutableList<MutableList<GameCell>>
     private var outerCell: GameCell
 
     private val widthMap: Float

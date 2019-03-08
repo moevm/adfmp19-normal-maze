@@ -1,6 +1,6 @@
 package ru.shabashoff.game.players
 
-class RealPlayer : Player {
+class RealPlayer(x: Int, y: Int) : Player(x, y) {
 
 
     override fun move() {
