@@ -78,11 +78,11 @@ class GameMap {
         //TODO Add implementation
     }
 
-    private fun deConvertX(x: Float): Int {
+    fun deConvertX(x: Float): Int {
         return ((x - paddingX) / (widthElem + padding)).toInt()
     }
 
-    private fun deConvertY(y: Float): Int {
+    fun deConvertY(y: Float): Int {
         return ((y - paddingY) / (heightElem + padding)).toInt()
     }
 

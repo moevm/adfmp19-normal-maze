@@ -1,7 +1,6 @@
 package ru.shabashoff.game.players
 
 import ru.shabashoff.game.GameCell
-import ru.shabashoff.game.GameUtils
 import ru.shabashoff.primitives.IntPoint
 
 class Bot(x: Int, y: Int) : Player(x, y) {
@@ -9,23 +8,11 @@ class Bot(x: Int, y: Int) : Player(x, y) {
     val setPlayer: MutableSet<IntPoint> = HashSet()
     val setCell: MutableSet<IntPoint> = HashSet()
 
-    override fun move() {
-        val map = GameUtils.curGameSession!!.map.map
-
-        println("bot move")
-
-        initSet(map, IntPoint(0, 0), setCell)
-
-        println("After bot move")
-
-        //TODO: implement logic
-    }
 
     fun getPointToPut(): IntPoint {
-        val map = GameUtils.curGameSession!!.map.map
 
-        /*initSet(map, IntPoint(x, y), setPlayer)
-        initSet(map, IntPoint(2, 2), setPlayer) // TODO going to search point*/
+        /*initSet(map.map, IntPoint(x, y), setPlayer)
+        initSet(map.map, IntPoint(2, 2), setPlayer) // TODO going to search point*/
 
 
         return IntPoint(2, 2)
