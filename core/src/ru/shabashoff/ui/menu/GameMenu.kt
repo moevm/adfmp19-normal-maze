@@ -12,7 +12,8 @@ class GameMenu : MenuInterface() {
 
 
     override fun dispose() {
-        //TODO("not implemented")
+        super.dispose()
+
     }
 
 }

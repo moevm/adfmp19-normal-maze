@@ -19,6 +19,11 @@ class MenuPainter {
         curMenu = RuleMenu()
     }
 
+    fun statistic() {
+        dispose()
+        curMenu = StatisticMenu()
+    }
+
     fun onClickSetting() {
         println("Show setting")
     }
