@@ -10,5 +10,7 @@ abstract class MenuInterface {
         settingButton.makeSquare()
     }
 
-    abstract fun dispose()
+    open fun dispose(){
+        settingButton.remove()
+    }
 }
