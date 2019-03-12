@@ -1,4 +1,4 @@
-package ru.shabashoff.ui.menu
+package ru.shabashoff.ui.menu.main
 
 import ru.shabashoff.ui.UiUtils
 import ru.shabashoff.ui.buttons.DefaultTextButton

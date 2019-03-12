@@ -1,4 +1,4 @@
-package ru.shabashoff.ui.menu
+package ru.shabashoff.ui.menu.game
 
 import ru.shabashoff.game.GameSession
 import ru.shabashoff.game.GameUtils

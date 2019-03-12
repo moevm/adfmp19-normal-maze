@@ -2,22 +2,19 @@ package ru.shabashoff.game
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.Action
-import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import ru.shabashoff.primitives.Point
+import ru.shabashoff.primitives.RigidSprite
 
 
-class GameCell(val type: GameCellType, point: Point, private val w: Float, private val h: Float) : Actor() {
+class GameCell(val type: GameCellType, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
 
     private val ANIMATE_DURATION = 500f
 
     internal var isDraggable: Boolean = false
-
-    private var sprite: Sprite = type.getSprite()
 
     private var clickTime: Long = 0L
 
@@ -26,8 +23,7 @@ class GameCell(val type: GameCellType, point: Point, private val w: Float, priva
     private val animation: ru.shabashoff.animation.Animation = ru.shabashoff.animation.Animation(this)
 
     init {
-        sprite.setBounds(point.x, point.y, w, h)
-        setBounds(sprite.x, sprite.y, sprite.width, sprite.height)
+        setBounds(point.x, point.y, w, h)
 
         touchable = Touchable.enabled
 
@@ -79,10 +75,6 @@ class GameCell(val type: GameCellType, point: Point, private val w: Float, priva
 
     fun isClick(): Boolean {
         return System.currentTimeMillis() - clickTime < 250L
-    }
-
-    override fun positionChanged() {
-        sprite.setPosition(x, y)
     }
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
