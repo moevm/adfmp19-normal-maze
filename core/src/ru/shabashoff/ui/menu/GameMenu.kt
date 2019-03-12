@@ -3,7 +3,7 @@ package ru.shabashoff.ui.menu
 import ru.shabashoff.game.GameSession
 import ru.shabashoff.game.GameUtils
 
-class GameMenu : MenuInterface() {
+class GameMenu : SelectGameMenu() {
 
     init {
         GameUtils.curGameSession = GameSession()

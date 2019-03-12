@@ -3,6 +3,7 @@ package ru.shabashoff.ui.menu
 class MenuPainter {
 
     var curMenu: MenuInterface = MainMenu()
+    var chMenu: SelectGameMenu = ChooseGame()
 
     fun mainMenu() {
         dispose()
@@ -11,7 +12,7 @@ class MenuPainter {
 
     fun testGame() {
         dispose()
-        curMenu = GameMenu()
+        chMenu = ChooseGame()
     }
 
     fun rules() {
@@ -28,6 +29,14 @@ class MenuPainter {
         println("Show setting")
     }
 
+    fun onClickPause() {
+        println("Show pause")
+    }
+
+    fun chooseGame() {
+        dispose()
+        chMenu = GameMenu()
+    }
 
     fun dispose() {
         curMenu.dispose()
