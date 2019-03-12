@@ -61,8 +61,8 @@ class GameSession {
 
         }*/
     }
-}
 
-private enum class GameMode {
-    FIRST, SECOND
+    enum class GameMode {
+        FIRST, SECOND
+    }
 }
