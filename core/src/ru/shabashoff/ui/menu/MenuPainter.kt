@@ -45,13 +45,18 @@ class MenuPainter {
     fun onClickSetting() {
         if (popupMenu != null) return
 
-        println("Show setting")
+        popupMenu = PopUpMenu()
     }
 
     fun onClickPause() {
         if (popupMenu != null) return
 
         println("Show pause")
+    }
+
+    fun closePopup() {
+        popupMenu?.dispose()
+        popupMenu = null
     }
 
     fun chooseGame() {

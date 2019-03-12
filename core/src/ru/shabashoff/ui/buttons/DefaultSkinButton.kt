@@ -12,10 +12,10 @@ import ru.shabashoff.ui.UiUtils
 class DefaultSkinButton(x: Float, y: Float, width: Float, height: Float, private val sprite: Sprite, private val onclick: () -> Unit) : Button(getButtonStyle()) {
 
     init {
-        this.x = UiUtils.getAbsoluteX(x, width)
-        this.y = UiUtils.getAbsoluteY(y, height)
-        this.width = UiUtils.getAbsoluteWidthPoint(width)
-        this.height = UiUtils.getAbsoluteHeightPoint(height)
+        this.x = UiUtils.calcX(x, width)
+        this.y = UiUtils.calcY(y, height)
+        this.width = UiUtils.calcWidth(width)
+        this.height = UiUtils.calcHeight(height)
 
         sprite.setBounds(this.x, this.y, this.width, this.height)
 
