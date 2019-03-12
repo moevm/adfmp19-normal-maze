@@ -2,27 +2,26 @@ package ru.shabashoff.ui.menu
 
 class MenuPainter {
 
-    var curMenu: MenuInterface = MainMenu()
-    var chMenu: SelectGameMenu = ChooseGame()
+    var curMenu: MenuInterface = StartMenuAbstract()
 
     fun mainMenu() {
         dispose()
-        curMenu = MainMenu()
+        curMenu = StartMenuAbstract()
     }
 
     fun testGame() {
         dispose()
-        chMenu = ChooseGame()
+        curMenu = GameWithBots()
     }
 
     fun rules() {
         dispose()
-        curMenu = RuleMenu()
+        curMenu = RuleMenuAbstract()
     }
 
     fun statistic() {
         dispose()
-        curMenu = StatisticMenu()
+        curMenu = StatisticMenuAbstract()
     }
 
     fun onClickSetting() {
@@ -35,7 +34,7 @@ class MenuPainter {
 
     fun chooseGame() {
         dispose()
-        curMenu = MainMenu()
+        curMenu = ChooseGameMenuAbstract()
     }
 
     fun dispose() {
