@@ -35,7 +35,7 @@ class MenuPainter {
 
     fun chooseGame() {
         dispose()
-        chMenu = GameMenu()
+        curMenu = MainMenu()
     }
 
     fun dispose() {
