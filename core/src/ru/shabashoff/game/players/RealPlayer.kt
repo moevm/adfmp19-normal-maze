@@ -1,6 +1,8 @@
 package ru.shabashoff.game.players
 
-class RealPlayer(x: Int, y: Int) : Player(x, y) {
+import ru.shabashoff.primitives.IntPoint
+
+class RealPlayer(curPoint:IntPoint) : Player(curPoint) {
 
 
 

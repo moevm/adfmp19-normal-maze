@@ -4,77 +4,77 @@ import ru.shabashoff.ui.menu.game.GameWithBots
 import ru.shabashoff.ui.menu.game.MenuInterface
 import ru.shabashoff.ui.menu.main.*
 import ru.shabashoff.ui.menu.popup.*
+import java.util.*
 
 class MenuPainter {
 
     private var curMenu: MenuInterface = StartMenuAbstract()
-    private var popupMenu: PopUpMenu? = null
+    private var popupMenu: Stack<PopUpMenu> = Stack()
 
 
     fun mainMenu() {
-        if (popupMenu != null) return
+        if (popupMenu.isNotEmpty()) return
 
         dispose()
         curMenu = StartMenuAbstract()
     }
 
     fun testGame() {
-        if (popupMenu != null) return
+        if (popupMenu.isNotEmpty()) return
 
         dispose()
         curMenu = GameWithBots()
     }
 
     fun rules() {
-        if (popupMenu != null) return
+        if (popupMenu.isNotEmpty()) return
 
         dispose()
         curMenu = RuleMenuAbstract()
 
     }
 
-    fun goToRule(){
-        popupMenu = PopUpRule()
+    fun goToRule() {
+        popupMenu.push(PopUpRule())
     }
 
     fun statistic() {
-        if (popupMenu != null) return
+        if (popupMenu.isNotEmpty()) return
 
         dispose()
 
         curMenu = StatisticMenuAbstract()
     }
 
-    fun goToStatistic(){
-        popupMenu = PopUpStatistic()
+    fun goToStatistic() {
+        popupMenu.push(PopUpStatistic())
     }
 
     fun onClickSetting() {
-        if (popupMenu != null) return
+        if (popupMenu.isNotEmpty()) return
 
-        popupMenu = PopUpSettings()
+        popupMenu.push(PopUpSettings())
     }
 
     fun onClickPause() {
-        if (popupMenu != null) return
-        popupMenu = PopUpPause()
+        if (popupMenu.isNotEmpty()) return
+        popupMenu.push(PopUpPause())
 
         println("Show pause")
     }
 
     fun closePopup() {
-        popupMenu?.dispose()
-        popupMenu = null
+        popupMenu.pop()!!.dispose()
     }
 
     fun chooseGame() {
-        if (popupMenu != null) return
+        if (popupMenu.isNotEmpty()) return
 
         dispose()
         curMenu = ChooseGameMenu()
     }
 
-    fun chooseName(){
+    fun chooseName() {
         dispose()
         curMenu = ChooseName()
     }
@@ -93,8 +93,8 @@ class MenuPainter {
     }
 
     fun dispose() {
-        popupMenu?.dispose()
-        popupMenu = null
+        popupMenu.forEach { p -> p.dispose() }
+        popupMenu.clear()
         curMenu.dispose()
     }
 }

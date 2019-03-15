@@ -11,9 +11,6 @@ abstract class PopUpMenu : RigidSprite(UiUtils.getIconSprite("PANEL")) {
     init {
         setBounds(UiUtils.calcX(0.5f, 0.6f), UiUtils.calcY(0.5f, 0.8f), UiUtils.calcWidth(0.6f), UiUtils.calcHeight(0.8f))
         print("x:$x y:$y w:$width h:$height")
-
-        UiUtils.getStage().addActor(this)
-
         closeButton = DefaultSkinButton(0.75f, 0.85f, 0.07f, 0.07f, UiUtils.getIconSprite("CLOSE")) { UiUtils.menuPainter?.closePopup() }
     }
 
