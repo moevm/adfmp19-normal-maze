@@ -9,4 +9,10 @@ class GameWithBots : GameMenuAbstract() {
         GameUtils.curGameSession = GameSession()
         GameUtils.curGameSession!!.loadPlayers()
     }
+
+
+    override fun dispose(){
+        GameUtils.curGameSession!!.dispose()
+
+    }
 }

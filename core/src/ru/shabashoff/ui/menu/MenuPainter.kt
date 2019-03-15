@@ -2,11 +2,8 @@ package ru.shabashoff.ui.menu
 
 import ru.shabashoff.ui.menu.game.GameWithBots
 import ru.shabashoff.ui.menu.game.MenuInterface
-import ru.shabashoff.ui.menu.main.ChooseGameMenu
-import ru.shabashoff.ui.menu.main.RuleMenuAbstract
-import ru.shabashoff.ui.menu.main.StartMenuAbstract
-import ru.shabashoff.ui.menu.main.StatisticMenuAbstract
-import ru.shabashoff.ui.menu.popup.PopUpMenu
+import ru.shabashoff.ui.menu.main.*
+import ru.shabashoff.ui.menu.popup.*
 
 class MenuPainter {
 
@@ -33,23 +30,34 @@ class MenuPainter {
 
         dispose()
         curMenu = RuleMenuAbstract()
+
+    }
+
+    fun goToRule(){
+        popupMenu = PopUpRule()
     }
 
     fun statistic() {
         if (popupMenu != null) return
 
         dispose()
+
         curMenu = StatisticMenuAbstract()
+    }
+
+    fun goToStatistic(){
+        popupMenu = PopUpStatistic()
     }
 
     fun onClickSetting() {
         if (popupMenu != null) return
 
-        popupMenu = PopUpMenu()
+        popupMenu = PopUpSettings()
     }
 
     fun onClickPause() {
         if (popupMenu != null) return
+        popupMenu = PopUpPause()
 
         println("Show pause")
     }
@@ -66,7 +74,27 @@ class MenuPainter {
         curMenu = ChooseGameMenu()
     }
 
+    fun chooseName(){
+        dispose()
+        curMenu = ChooseName()
+    }
+
+    fun authorization() {
+        println("authorization")
+    }
+
+    fun sound() {
+        println("Sound on/off")
+    }
+
+    fun exitToMainMenu() {
+        dispose()
+        curMenu = StartMenuAbstract()
+    }
+
     fun dispose() {
+        popupMenu?.dispose()
+        popupMenu = null
         curMenu.dispose()
     }
 }

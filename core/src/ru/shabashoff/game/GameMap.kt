@@ -115,6 +115,11 @@ class GameMap {
         }
     }
 
+    fun dispose() {
+        map.forEach { l -> l.forEach { c -> c.remove() } }
+        outerCell.remove()
+    }
+
     private fun moveXLine(x: Int, y: Int) {
         if (x != 0 && x != w - 1) {
             Gdx.app.error("Error", "X line doesn't front line")

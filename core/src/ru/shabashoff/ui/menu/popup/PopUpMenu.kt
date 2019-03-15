@@ -4,7 +4,7 @@ import ru.shabashoff.primitives.RigidSprite
 import ru.shabashoff.ui.UiUtils
 import ru.shabashoff.ui.buttons.DefaultSkinButton
 
-class PopUpMenu : RigidSprite(UiUtils.getIconSprite("BUTTON")) {
+abstract class PopUpMenu : RigidSprite(UiUtils.getIconSprite("PANEL")) {
 
     private val closeButton: DefaultSkinButton
 
@@ -14,11 +14,10 @@ class PopUpMenu : RigidSprite(UiUtils.getIconSprite("BUTTON")) {
 
         UiUtils.getStage().addActor(this)
 
-        closeButton = DefaultSkinButton(0.7f, 0.7f, 0.07f, 0.07f, UiUtils.getIconSprite("PAUSE")) { UiUtils.menuPainter?.closePopup() }
-
+        closeButton = DefaultSkinButton(0.75f, 0.85f, 0.07f, 0.07f, UiUtils.getIconSprite("CLOSE")) { UiUtils.menuPainter?.closePopup() }
     }
 
-    fun dispose() {
+    open fun dispose() {
         closeButton.remove()
         remove()
     }

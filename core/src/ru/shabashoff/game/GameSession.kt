@@ -15,6 +15,11 @@ class GameSession {
 
     private var gameMode: GameMode = GameMode.FIRST
 
+    fun dispose() {
+        players.forEach { p -> p.dispose() }
+        map.dispose()
+    }
+
     fun loadPlayers() {
         players = listOf(RealPlayer(0, 0), RealPlayer(3, 3))
         curPlayer = players[0]

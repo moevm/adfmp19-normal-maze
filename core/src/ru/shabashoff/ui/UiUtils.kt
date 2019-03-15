@@ -76,6 +76,9 @@ object UiUtils {
         sprites.add(sprite)
     }
 
+    fun removeSprite(sprite: Sprite){
+        sprites.remove(sprite)
+    }
     fun getSprites(): List<Sprite> {
         return sprites
     }

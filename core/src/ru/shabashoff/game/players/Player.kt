@@ -30,4 +30,8 @@ abstract class Player(var x: Int, var y: Int) {
     private fun reBoundSprite() {
         sprite.setBounds(map.convertX(x), map.convertY(y), 50f, 50f)
     }
+    fun dispose(){
+        UiUtils.removeSprite(sprite)
+    }
+
 }
