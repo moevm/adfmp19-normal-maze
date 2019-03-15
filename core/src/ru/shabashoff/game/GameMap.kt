@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils.random
 import ru.shabashoff.primitives.IntPoint
 import ru.shabashoff.primitives.Point
-import ru.shabashoff.ui.UiUtils
 
 class GameMap {
     val map: MutableList<MutableList<GameCell>>
@@ -44,10 +43,7 @@ class GameMap {
         }
 
         map = MutableList(w) { i -> MutableList(h) { j -> GameCell(getRandType(), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
-        map.forEach { arr -> arr.forEach { c -> UiUtils.getStage().addActor(c) } }
-
         outerCell = GameCell(getRandType(), Point(0f, 0f), widthElem, heightElem)
-        UiUtils.getStage().addActor(outerCell)
         outerCell.isDraggable = true
     }
 
@@ -113,6 +109,11 @@ class GameMap {
             moveXLine(xi, yi)
             return
         }
+    }
+
+    fun dispose() {
+        map.forEach { l -> l.forEach { c -> c.remove() } }
+        outerCell.remove()
     }
 
     private fun moveXLine(x: Int, y: Int) {

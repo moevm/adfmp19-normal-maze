@@ -3,7 +3,7 @@ package ru.shabashoff.game.players
 import ru.shabashoff.game.GameCell
 import ru.shabashoff.primitives.IntPoint
 
-class Bot(x: Int, y: Int) : Player(x, y) {
+class Bot(curPoint: IntPoint) : Player(curPoint) {
 
     val setPlayer: MutableSet<IntPoint> = HashSet()
     val setCell: MutableSet<IntPoint> = HashSet()

@@ -44,19 +44,19 @@ object UiUtils {
         btnDefaultStyle.down = btnDefaultSkin.getDrawable("BUTTON_PRESSED")
     }
 
-    fun getAbsoluteX(x: Float, w: Float): Float {
-        return getAbsoluteWidthPoint(x - (w / 2.0f))
+    fun calcX(x: Float, w: Float): Float {
+        return calcWidth(x - (w / 2.0f))
     }
 
-    fun getAbsoluteY(y: Float, h: Float): Float {
-        return getAbsoluteHeightPoint(y - (h / 2.0f))
+    fun calcY(y: Float, h: Float): Float {
+        return calcHeight(y - (h / 2.0f))
     }
 
-    fun getAbsoluteWidthPoint(wdt: Float): Float {
+    fun calcWidth(wdt: Float): Float {
         return wdt * width
     }
 
-    fun getAbsoluteHeightPoint(hgt: Float): Float {
+    fun calcHeight(hgt: Float): Float {
         return hgt * height
     }
 
@@ -76,15 +76,18 @@ object UiUtils {
         sprites.add(sprite)
     }
 
+    fun removeSprite(sprite: Sprite){
+        sprites.remove(sprite)
+    }
     fun getSprites(): List<Sprite> {
         return sprites
     }
 
     fun setPercentBounds(x: Float, y: Float, w: Float, h: Float, actor: Actor) {
-        actor.setBounds(getAbsoluteX(x, w), getAbsoluteY(y, h), getAbsoluteWidthPoint(w), getAbsoluteHeightPoint(h))
+        actor.setBounds(calcX(x, w), calcY(y, h), calcWidth(w), calcHeight(h))
     }
 
     fun setPercentPosition(x: Float, y: Float, w: Float, h: Float, actor: Actor) {
-        actor.setPosition(getAbsoluteX(x, w), getAbsoluteY(y, h))
+        actor.setPosition(calcX(x, w), calcY(y, h))
     }
 }

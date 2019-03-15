@@ -1,9 +1,9 @@
-package ru.shabashoff.ui.menu
+package ru.shabashoff.ui.menu.game
 
 import ru.shabashoff.game.GameSession
 import ru.shabashoff.game.GameUtils
 
-class GameMenu : MenuInterface() {
+class GameWithBots : GameMenuAbstract() {
 
     init {
         GameUtils.curGameSession = GameSession()
@@ -11,9 +11,8 @@ class GameMenu : MenuInterface() {
     }
 
 
-    override fun dispose() {
-        super.dispose()
+    override fun dispose(){
+        GameUtils.curGameSession!!.dispose()
 
     }
-
 }

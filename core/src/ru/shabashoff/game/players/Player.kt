@@ -1,26 +1,22 @@
 package ru.shabashoff.game.players
 
-import com.badlogic.gdx.graphics.g2d.Sprite
 import ru.shabashoff.game.GameMap
 import ru.shabashoff.game.GameUtils
 import ru.shabashoff.primitives.IntPoint
+import ru.shabashoff.primitives.RigidSprite
 import ru.shabashoff.ui.UiUtils
 
-abstract class Player(var x: Int, var y: Int) {
+abstract class Player(var curPoint: IntPoint) : RigidSprite(UiUtils.getIconSprite("PAUSE")) {
 
-    private val sprite: Sprite = UiUtils.getIconSprite("PAUSE")//TODO fix icon
 
-    protected val map: GameMap = GameUtils.curGameSession!!.map
+    private val map: GameMap = GameUtils.curGameSession!!.map
 
     init {
         reBoundSprite()
-
-        UiUtils.addSprite(sprite)
     }
 
     fun move(point: IntPoint) {
-        x = point.x
-        y = point.y
+        curPoint = point
 
         reBoundSprite()
     }
@@ -28,6 +24,6 @@ abstract class Player(var x: Int, var y: Int) {
     abstract fun isBot(): Boolean
 
     private fun reBoundSprite() {
-        sprite.setBounds(map.convertX(x), map.convertY(y), 50f, 50f)
+        setBounds(map.convertX(curPoint.x), map.convertY(curPoint.y), 50f, 50f)
     }
 }

@@ -15,8 +15,13 @@ class GameSession {
 
     private var gameMode: GameMode = GameMode.FIRST
 
+    fun dispose() {
+        players.forEach { p -> p.remove() }
+        map.dispose()
+    }
+
     fun loadPlayers() {
-        players = listOf(RealPlayer(0, 0), RealPlayer(3, 3))
+        players = listOf(RealPlayer(IntPoint(0, 0)), RealPlayer(IntPoint(3, 3)))
         curPlayer = players[0]
     }
 
@@ -61,8 +66,8 @@ class GameSession {
 
         }*/
     }
-}
 
-private enum class GameMode {
-    FIRST, SECOND
+    enum class GameMode {
+        FIRST, SECOND
+    }
 }
