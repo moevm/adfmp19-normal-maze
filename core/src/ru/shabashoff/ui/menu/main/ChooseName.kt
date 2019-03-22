@@ -1,7 +1,7 @@
 package ru.shabashoff.ui.menu.main
 
 import ru.shabashoff.ui.UiUtils
-import ru.shabashoff.ui.buttons.DefaultTextButton
+import ru.shabashoff.ui.elements.DefaultTextButton
 
 class ChooseName:MainMenuAbstract() {
     private val player1: DefaultTextButton = DefaultTextButton(0.25f, 0.4f, 0.2f, 0.1f, "player1") {}

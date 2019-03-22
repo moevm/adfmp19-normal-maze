@@ -1,10 +1,10 @@
 package ru.shabashoff.ui.menu.main
 
 import ru.shabashoff.ui.UiUtils
-import ru.shabashoff.ui.buttons.DefaultSkinButton
-import ru.shabashoff.ui.buttons.DefaultTextButton
+import ru.shabashoff.ui.elements.DefaultSkinButton
+import ru.shabashoff.ui.elements.DefaultTextButton
 
-class RuleMenuAbstract : MainMenuAbstract() {
+class RuleMenu : MainMenuAbstract() {
 
 
     var ruleMenu: DefaultSkinButton = DefaultSkinButton(0.5f, 0.6f, 0.6f, 0.5f, UiUtils.getIconSprite("PANEL")) { } //TODO remove button add something

@@ -8,7 +8,7 @@ import java.util.*
 
 class MenuPainter {
 
-    private var curMenu: MenuInterface = StartMenuAbstract()
+    private var curMenu: MenuInterface = StartMenu()
     private var popupMenu: Stack<PopUpMenu> = Stack()
 
 
@@ -16,7 +16,7 @@ class MenuPainter {
         if (popupMenu.isNotEmpty()) return
 
         dispose()
-        curMenu = StartMenuAbstract()
+        curMenu = StartMenu()
     }
 
     fun testGame() {
@@ -30,7 +30,7 @@ class MenuPainter {
         if (popupMenu.isNotEmpty()) return
 
         dispose()
-        curMenu = RuleMenuAbstract()
+        curMenu = RuleMenu()
 
     }
 
@@ -43,7 +43,7 @@ class MenuPainter {
 
         dispose()
 
-        curMenu = StatisticMenuAbstract()
+        curMenu = StatisticMenu()
     }
 
     fun goToStatistic() {
@@ -89,7 +89,7 @@ class MenuPainter {
 
     fun exitToMainMenu() {
         dispose()
-        curMenu = StartMenuAbstract()
+        curMenu = StartMenu()
     }
 
     fun dispose() {

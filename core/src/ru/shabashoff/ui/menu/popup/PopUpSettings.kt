@@ -1,9 +1,7 @@
 package ru.shabashoff.ui.menu.popup
 
-import ru.shabashoff.primitives.RigidSprite
 import ru.shabashoff.ui.UiUtils
-import ru.shabashoff.ui.buttons.DefaultSkinButton
-import ru.shabashoff.ui.buttons.DefaultTextButton
+import ru.shabashoff.ui.elements.DefaultTextButton
 
 class PopUpSettings : PopUpMenu() {
 

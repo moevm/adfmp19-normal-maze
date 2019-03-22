@@ -1,7 +1,7 @@
 package ru.shabashoff.ui.menu.main
 
 import ru.shabashoff.ui.UiUtils
-import ru.shabashoff.ui.buttons.DefaultSkinButton
+import ru.shabashoff.ui.elements.DefaultSkinButton
 import ru.shabashoff.ui.menu.game.MenuInterface
 
 open class MainMenuAbstract : MenuInterface {

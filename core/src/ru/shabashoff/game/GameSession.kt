@@ -54,7 +54,7 @@ class GameSession {
     fun afterPut() {
         //nextPlayer()
         gameMode = GameMode.SECOND
-    }
+    } 
 
     private fun nextPlayer() {
         curNumPlayer = (curNumPlayer + 1) % players.size

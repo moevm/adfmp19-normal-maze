@@ -13,7 +13,7 @@ import ru.shabashoff.ui.menu.MenuPainter
 object UiUtils {
 
     private val routesSkin: Skin = Skin()
-    private val btnDefaultSkin: Skin = Skin()
+    val btnDefaultSkin: Skin = Skin()
 
     private val sprites: MutableList<Sprite> = ArrayList()
 
@@ -76,9 +76,10 @@ object UiUtils {
         sprites.add(sprite)
     }
 
-    fun removeSprite(sprite: Sprite){
+    fun removeSprite(sprite: Sprite) {
         sprites.remove(sprite)
     }
+
     fun getSprites(): List<Sprite> {
         return sprites
     }

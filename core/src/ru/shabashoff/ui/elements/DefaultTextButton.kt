@@ -1,4 +1,4 @@
-package ru.shabashoff.ui.buttons
+package ru.shabashoff.ui.elements
 
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton

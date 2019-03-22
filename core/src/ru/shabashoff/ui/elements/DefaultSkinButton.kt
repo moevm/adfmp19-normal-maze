@@ -1,4 +1,4 @@
-package ru.shabashoff.ui.buttons
+package ru.shabashoff.ui.elements
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.Sprite
