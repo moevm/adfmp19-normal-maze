@@ -41,8 +41,8 @@ class GameMap {
             heightElem = hEl
         }
 
-        map = MutableList(w) { i -> MutableList(h) { j -> GameCell(getRandType(), IntPoint(i, j), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
-        outerCell = GameCell(getRandType(), IntPoint(-1, -1), Point(0f, 0f), widthElem, heightElem)
+        map = MutableList(w) { i -> MutableList(h) { j -> GameCell(getRandType(), generateGift(), IntPoint(i, j), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
+        outerCell = GameCell(getRandType(), generateGift(), IntPoint(-1, -1), Point(0f, 0f), widthElem, heightElem)
         outerCell.isDraggable = true
     }
 
@@ -123,6 +123,13 @@ class GameMap {
         return null
     }
 
+    private fun generateGift(): Gift? {
+        val i = random.nextInt(GiftType.values().size * 2)
+
+        if (i < GiftType.values().size) return Gift(GiftType.values()[i])
+        return null
+    }
+
     private fun moveXLine(x: Int, y: Int) {
         if (x != 0 && x != w - 1) {
             Gdx.app.error("Error", "Y line doesn't front line")
@@ -188,6 +195,18 @@ class GameMap {
         }
 
         afterMove()
+    }
+
+    fun getNewPlayerPosition(point: IntPoint): IntPoint {
+        if (isValidPoint(point)) return point
+
+        while (point.x < 0) point.x += w
+        while (point.y < 0) point.y += h
+
+        while (point.x >= w) point.x %= w
+        while (point.y >= h) point.y %= h
+
+        return point
     }
 
     fun isValidPoint(point: IntPoint): Boolean {

@@ -17,9 +17,7 @@ abstract class Player(var curPoint: IntPoint) : RigidSprite(UiUtils.getIconSprit
     }
 
     fun moveBy(point: IntPoint) {
-        if (map.isValidPoint(curPoint.add(point))) {
-            move(curPoint.add(point))
-        }
+        move(map.getNewPlayerPosition(curPoint.add(point)))
     }
 
     fun move(point: IntPoint) {

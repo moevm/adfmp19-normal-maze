@@ -1,6 +1,7 @@
 package ru.shabashoff.game
 
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
@@ -10,7 +11,7 @@ import ru.shabashoff.primitives.Point
 import ru.shabashoff.primitives.RigidSprite
 
 
-class GameCell(val type: GameCellType, var ip: IntPoint, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
+class GameCell(val type: GameCellType, val gift: Gift?, var ip: IntPoint, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
 
     private val ANIMATE_DURATION = 500f
 
@@ -88,7 +89,7 @@ class GameCell(val type: GameCellType, var ip: IntPoint, point: Point, private v
 
     fun moveWithAnimation(point: Point) {
         val map = GameUtils.curGameSession!!.map
-        ip = IntPoint(map.deConvertX(point.x), map.deConvertX(point.y))
+        //ip = IntPoint(map.deConvertX(point.x), map.deConvertX(point.y))
 
         animation.animateMove(ANIMATE_DURATION, point)
     }
@@ -127,5 +128,13 @@ class GameCell(val type: GameCellType, var ip: IntPoint, point: Point, private v
         return result
     }
 
+    override fun positionChanged() {
+        super.positionChanged()
+        gift?.sprite?.setPosition(x, y)
+    }
 
+    override fun draw(batch: Batch?, parentAlpha: Float) {
+        super.draw(batch, parentAlpha)
+        gift?.sprite?.draw(batch!!)
+    }
 }
