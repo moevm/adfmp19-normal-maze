@@ -2,6 +2,11 @@ package ru.shabashoff.primitives
 
 class IntPoint(var x: Int, var y: Int) {
 
+    fun add(a: IntPoint): IntPoint {
+        return IntPoint(x + a.x, y + a.y)
+    }
+
+
     override fun toString(): String {
         return "Point(x=$x, y=$y)"
     }

@@ -14,12 +14,10 @@ open class RigidSprite(val sprite: Sprite) : Actor() {
     }
 
     override fun positionChanged() {
-        println("Set position x:$x y:$y")
         sprite.setPosition(x, y)
     }
 
     override fun sizeChanged() {
-        println("Set pos and size x:$x y:$y w:$width h:$height")
         sprite.setBounds(x, y, width, height)
     }
 

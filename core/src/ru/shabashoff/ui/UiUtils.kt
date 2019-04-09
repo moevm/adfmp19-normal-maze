@@ -13,7 +13,7 @@ import ru.shabashoff.ui.menu.MenuPainter
 object UiUtils {
 
     private val routesSkin: Skin = Skin()
-    val btnDefaultSkin: Skin = Skin()
+    private val btnDefaultSkin: Skin = Skin()
 
     private val sprites: MutableList<Sprite> = ArrayList()
 

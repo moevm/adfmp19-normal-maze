@@ -4,11 +4,13 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import ru.shabashoff.animation.Animation
+import ru.shabashoff.primitives.IntPoint
 import ru.shabashoff.primitives.Point
 import ru.shabashoff.primitives.RigidSprite
 
 
-class GameCell(val type: GameCellType, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
+class GameCell(val type: GameCellType, var ip: IntPoint, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
 
     private val ANIMATE_DURATION = 500f
 
@@ -18,7 +20,8 @@ class GameCell(val type: GameCellType, point: Point, private val w: Float, priva
 
     private var lastTouch: Point? = null
 
-    private val animation: ru.shabashoff.animation.Animation = ru.shabashoff.animation.Animation(this)
+    private val animation: Animation = Animation(this)
+
 
     init {
         setBounds(point.x, point.y, w, h)
@@ -84,6 +87,9 @@ class GameCell(val type: GameCellType, point: Point, private val w: Float, priva
     }
 
     fun moveWithAnimation(point: Point) {
+        val map = GameUtils.curGameSession!!.map
+        ip = IntPoint(map.deConvertX(point.x), map.deConvertX(point.y))
+
         animation.animateMove(ANIMATE_DURATION, point)
     }
 
@@ -103,7 +109,23 @@ class GameCell(val type: GameCellType, point: Point, private val w: Float, priva
         sprite.color = color
     }
 
-    override fun toString(): String {
-        return "GameCell(type=$type, point=($x,$y), w=$w, h=$h, isDraggable=$isDraggable)"
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as GameCell
+
+        if (type != other.type) return false
+        if (ip != other.ip) return false
+
+        return true
     }
+
+    override fun hashCode(): Int {
+        var result = type.hashCode()
+        result = 31 * result + ip.hashCode()
+        return result
+    }
+
+
 }

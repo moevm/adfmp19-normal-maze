@@ -2,11 +2,10 @@ package ru.shabashoff.game
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils.random
-import ru.shabashoff.primitives.IntPoint
-import ru.shabashoff.primitives.Point
+import ru.shabashoff.primitives.*
 
 class GameMap {
-    val map: MutableList<MutableList<GameCell>>
+    private val map: MutableList<MutableList<GameCell>>
     private var outerCell: GameCell
 
     private val widthMap: Float
@@ -42,8 +41,8 @@ class GameMap {
             heightElem = hEl
         }
 
-        map = MutableList(w) { i -> MutableList(h) { j -> GameCell(getRandType(), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
-        outerCell = GameCell(getRandType(), Point(0f, 0f), widthElem, heightElem)
+        map = MutableList(w) { i -> MutableList(h) { j -> GameCell(getRandType(), IntPoint(i, j), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
+        outerCell = GameCell(getRandType(), IntPoint(-1, -1), Point(0f, 0f), widthElem, heightElem)
         outerCell.isDraggable = true
     }
 
@@ -89,26 +88,28 @@ class GameMap {
     fun onClick(cell: GameCell) {
         var center = cell.getCenter()
 
-        println(IntPoint(deConvertX(center.x), deConvertY(center.y)))
+        //println(IntPoint(deConvertX(center.x), deConvertY(center.y)))
     }
 
-    fun onPut(cell: GameCell) {
+    fun onPut(cell: GameCell): MoveLine? {
         val center = cell.getCenter()
 
-        if (!isPointOnMap(center)) return
+        if (!isPointOnMap(center)) return null
 
         val xi = deConvertX(center.x)
         val yi = deConvertY(center.y)
 
         if (yi == 0 || yi == h - 1) {
             moveYLine(xi, yi)
-            return
+            return MoveLine(xi, LineType.X, if (yi == 0) MoveTo.UP else MoveTo.DOWN)
         }
 
         if (xi == 0 || xi == w - 1) {
             moveXLine(xi, yi)
-            return
+            return MoveLine(yi, LineType.Y, if (xi == 0) MoveTo.RIGHT else MoveTo.LEFT)
         }
+
+        return null
     }
 
     fun dispose() {
@@ -116,9 +117,15 @@ class GameMap {
         outerCell.remove()
     }
 
+    fun getCell(pp: IntPoint): GameCell? {
+        if (isValidPoint(pp)) return map[pp.x][pp.y]
+
+        return null
+    }
+
     private fun moveXLine(x: Int, y: Int) {
         if (x != 0 && x != w - 1) {
-            Gdx.app.error("Error", "X line doesn't front line")
+            Gdx.app.error("Error", "Y line doesn't front line")
             return
         }
 
@@ -150,6 +157,7 @@ class GameMap {
 
         for (i in 0 until w) {
             map[i][y].moveWithAnimation(Point(convertX(i), convertY(y)))
+            map[i][y].ip = IntPoint(i, y)
             //map[i][y].animateFlashing()
         }
         afterMove()
@@ -157,7 +165,7 @@ class GameMap {
 
     private fun moveYLine(x: Int, y: Int) {
         if (y != 0 && y != h - 1) {
-            Gdx.app.error("Error", "Y line doesn't front line")
+            Gdx.app.error("Error", "X line doesn't front line")
             return
         }
 
@@ -175,16 +183,34 @@ class GameMap {
 
         for (i in 0 until h) {
             line[i].moveWithAnimation(Point(convertX(x), convertY(i)))
+            line[i].ip = IntPoint(x, i)
             //line[i].animateFlashing()
         }
 
         afterMove()
     }
 
+    fun isValidPoint(point: IntPoint): Boolean {
+        return ((point.x < 0 || point.x >= w) || (point.y < 0 || point.y >= h)).not()
+    }
 
     private fun afterMove() {
         outerToPoint()
-        GameUtils.curGameSession?.afterPut()
+//        GameUtils.curGameSession?.afterPut()
+    }
+
+    fun checkConstraints() {
+        for ((i, mutableList) in map.withIndex()) {
+            for ((j, cl) in mutableList.withIndex()) {
+                if (!cl.ip.equals(IntPoint(i, j))) {
+                    println("Error constraints!!!")
+                    println("i:$i j:$j")
+                    println("x:${cl.ip.x} y:${cl.ip.y}")
+                }
+            }
+        }
+
+        println("End check")
     }
 
     private fun outerToPoint() {
