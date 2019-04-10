@@ -3,12 +3,14 @@ package ru.shabashoff.game.players
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import ru.shabashoff.game.GameMap
 import ru.shabashoff.game.GameUtils
+import ru.shabashoff.game.Gift
 import ru.shabashoff.primitives.IntPoint
 import ru.shabashoff.primitives.RigidSprite
 import ru.shabashoff.ui.UiUtils
 
 abstract class Player(var curPoint: IntPoint) : RigidSprite(UiUtils.getIconSprite("PAUSE")) {
 
+    var searchingGift:Gift? = null
 
     private val map: GameMap = GameUtils.curGameSession!!.map
 

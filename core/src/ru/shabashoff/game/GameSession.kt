@@ -44,7 +44,7 @@ class GameSession {
         curPlayer.move(IntPoint(map.deConvertX(point.x), map.deConvertY(point.y)))
 
         gameMode = GameMode.FIRST
-        //nextPlayer()
+        nextPlayer()
         map.onClick(cell)
     }
 
@@ -86,19 +86,19 @@ class GameSession {
         reachableCells.add(cell)
 
         if (cell.type.bottom) {
-            val cl = map.getCell(cell.ip.add(IntPoint(0, -1)))
+            val cl = map.getCell(cell.getIp().add(IntPoint(0, -1)))
             if (cl != null && cl.type.up) fillReachableCells(cl)
         }
         if (cell.type.up) {
-            val cl = map.getCell(cell.ip.add(IntPoint(0, 1)))
+            val cl = map.getCell(cell.getIp().add(IntPoint(0, 1)))
             if (cl != null && cl.type.bottom) fillReachableCells(cl)
         }
         if (cell.type.left) {
-            val cl = map.getCell(cell.ip.add(IntPoint(-1, 0)))
+            val cl = map.getCell(cell.getIp().add(IntPoint(-1, 0)))
             if (cl != null && cl.type.right) fillReachableCells(cl)
         }
         if (cell.type.right) {
-            val cl = map.getCell(cell.ip.add(IntPoint(1, 0)))
+            val cl = map.getCell(cell.getIp().add(IntPoint(1, 0)))
             if (cl != null && cl.type.left) fillReachableCells(cl)
         }
     }

@@ -41,8 +41,8 @@ class GameMap {
             heightElem = hEl
         }
 
-        map = MutableList(w) { i -> MutableList(h) { j -> GameCell(getRandType(), generateGift(), IntPoint(i, j), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
-        outerCell = GameCell(getRandType(), generateGift(), IntPoint(-1, -1), Point(0f, 0f), widthElem, heightElem)
+        map = MutableList(w) { i -> MutableList(h) { j -> GameCell(getRandType(), generateGift(IntPoint(i, j)), IntPoint(i, j), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
+        outerCell = GameCell(getRandType(), generateGift(IntPoint(-1, -1)), IntPoint(-1, -1), Point(0f, 0f), widthElem, heightElem)
         outerCell.isDraggable = true
     }
 
@@ -123,10 +123,10 @@ class GameMap {
         return null
     }
 
-    private fun generateGift(): Gift? {
+    private fun generateGift(p: IntPoint): Gift? {
         val i = random.nextInt(GiftType.values().size * 2)
 
-        if (i < GiftType.values().size) return Gift(GiftType.values()[i])
+        if (i < GiftType.values().size) return Gift(p, GiftType.values()[i])
         return null
     }
 
@@ -164,7 +164,7 @@ class GameMap {
 
         for (i in 0 until w) {
             map[i][y].moveWithAnimation(Point(convertX(i), convertY(y)))
-            map[i][y].ip = IntPoint(i, y)
+            map[i][y].setIp(IntPoint(i, y))
             //map[i][y].animateFlashing()
         }
         afterMove()
@@ -190,7 +190,7 @@ class GameMap {
 
         for (i in 0 until h) {
             line[i].moveWithAnimation(Point(convertX(x), convertY(i)))
-            line[i].ip = IntPoint(x, i)
+            line[i].setIp(IntPoint(x, i))
             //line[i].animateFlashing()
         }
 
@@ -221,10 +221,10 @@ class GameMap {
     fun checkConstraints() {
         for ((i, mutableList) in map.withIndex()) {
             for ((j, cl) in mutableList.withIndex()) {
-                if (!cl.ip.equals(IntPoint(i, j))) {
+                if (!cl.getIp().equals(IntPoint(i, j))) {
                     println("Error constraints!!!")
                     println("i:$i j:$j")
-                    println("x:${cl.ip.x} y:${cl.ip.y}")
+                    println("x:${cl.getIp().x} y:${cl.getIp().y}")
                 }
             }
         }
