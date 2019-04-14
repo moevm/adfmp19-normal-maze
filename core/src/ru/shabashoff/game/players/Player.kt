@@ -1,25 +1,22 @@
 package ru.shabashoff.game.players
 
 import com.badlogic.gdx.scenes.scene2d.Touchable
-import ru.shabashoff.game.GameMap
-import ru.shabashoff.game.GameUtils
-import ru.shabashoff.game.Gift
+import ru.shabashoff.game.*
 import ru.shabashoff.primitives.IntPoint
 import ru.shabashoff.primitives.RigidSprite
 import ru.shabashoff.ui.UiUtils
 
-abstract class Player(var curPoint: IntPoint) : RigidSprite(UiUtils.getIconSprite("PAUSE")) {
-
-    var searchingGift:Gift? = null
+abstract class Player(var curPoint: IntPoint, var searchingGift: GiftType) : RigidSprite(UiUtils.getIconSprite("PAUSE")) {
 
     private val map: GameMap = GameUtils.curGameSession!!.map
+    private val sess: GameSession = GameUtils.curGameSession!!
 
     init {
         touchable = Touchable.disabled
     }
 
     fun moveBy(point: IntPoint) {
-        move(map.getNewPlayerPosition(curPoint.add(point)))
+        move(sess.map.getNewPlayerPosition(curPoint.add(point)))
     }
 
     fun move(point: IntPoint) {
@@ -28,11 +25,24 @@ abstract class Player(var curPoint: IntPoint) : RigidSprite(UiUtils.getIconSprit
 
         reBoundSprite()
         zIndex = 100
+
+        checkGift(point)
     }
 
     abstract fun isBot(): Boolean
 
+    private fun checkGift(point: IntPoint) {
+        val cell = sess.map.getCell(point)!!
+
+        val gift = cell.gift
+
+        if (gift != null && gift.type == searchingGift) {
+            cell.gift = null
+            sess.giftFounded()
+        }
+    }
+
     private fun reBoundSprite() {
-        setBounds(map.convertX(curPoint.x), map.convertY(curPoint.y), 50f, 50f)
+        setBounds(sess.map.convertX(curPoint.x), sess.map.convertY(curPoint.y), 50f, 50f)
     }
 }

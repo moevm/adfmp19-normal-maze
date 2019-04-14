@@ -11,7 +11,7 @@ import ru.shabashoff.primitives.Point
 import ru.shabashoff.primitives.RigidSprite
 
 
-class GameCell(val type: GameCellType, val gift: Gift?, private var ip: IntPoint, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
+class GameCell(val type: GameCellType, var gift: Gift?, private var ip: IntPoint, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
 
     private val ANIMATE_DURATION = 500f
 
@@ -112,7 +112,8 @@ class GameCell(val type: GameCellType, val gift: Gift?, private var ip: IntPoint
 
 
     fun setIp(point: IntPoint) {
-
+        ip = point
+        gift?.point = point
     }
 
     fun getIp(): IntPoint {

@@ -29,7 +29,7 @@ class GameSession {
     }
 
     fun loadPlayers() {
-        players = listOf(RealPlayer(IntPoint(0, 0)), RealPlayer(IntPoint(3, 3)))
+        players = listOf(RealPlayer(IntPoint(0, 0), GiftType.KEY), RealPlayer(IntPoint(3, 3), GiftType.KEY))
         curPlayer = players[0]
     }
 
@@ -72,7 +72,7 @@ class GameSession {
         }
     }
 
-    fun afterPut() {
+    private fun afterPut() {
         reachableCells.clear()
         fillReachableCells(map.getCell(curPlayer.curPoint))
         print(reachableCells)
@@ -101,6 +101,10 @@ class GameSession {
             val cl = map.getCell(cell.getIp().add(IntPoint(1, 0)))
             if (cl != null && cl.type.left) fillReachableCells(cl)
         }
+    }
+
+    fun giftFounded() {
+        curPlayer.searchingGift = GiftType.KEY//TODO next gift
     }
 
     private fun nextPlayer() {
