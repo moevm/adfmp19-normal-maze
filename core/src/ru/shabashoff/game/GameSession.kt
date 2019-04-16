@@ -5,10 +5,18 @@ import ru.shabashoff.game.players.RealPlayer
 import ru.shabashoff.primitives.IntPoint
 import ru.shabashoff.primitives.LineType
 import ru.shabashoff.primitives.MoveTo
+import ru.shabashoff.ui.UiUtils
 
 class GameSession {
 
-    val map: GameMap = GameMap(4, 4, 300.0f, 300.0f, 100.0f, 100.0f)
+    private val paddingX: Float = UiUtils.calcWidth(0.25f)
+    private val paddingY: Float = UiUtils.calcHeight(0.15f)
+
+    private val widthMap: Float = UiUtils.calcWidth(0.5f)
+    private val heightMap: Float = UiUtils.calcHeight(0.8f)
+
+
+    val map: GameMap = GameMap(5, 5, widthMap, heightMap, paddingX, paddingY)
 
     private lateinit var players: List<Player>
     private lateinit var curPlayer: Player
@@ -29,7 +37,7 @@ class GameSession {
     }
 
     fun loadPlayers() {
-        players = listOf(RealPlayer(IntPoint(0, 0), GiftType.KEY), RealPlayer(IntPoint(3, 3), GiftType.KEY))
+        players = listOf(RealPlayer(IntPoint(0, 0), GiftType.SETTINGS), RealPlayer(IntPoint(3, 3), GiftType.SETTINGS))
         curPlayer = players[0]
     }
 
@@ -104,7 +112,7 @@ class GameSession {
     }
 
     fun giftFounded() {
-        curPlayer.searchingGift = GiftType.KEY//TODO next gift
+        curPlayer.searchingGift = GiftType.SETTINGS//TODO next gift
     }
 
     private fun nextPlayer() {

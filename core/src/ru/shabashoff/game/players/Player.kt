@@ -3,13 +3,17 @@ package ru.shabashoff.game.players
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import ru.shabashoff.game.*
 import ru.shabashoff.primitives.IntPoint
+import ru.shabashoff.primitives.Point
 import ru.shabashoff.primitives.RigidSprite
+import ru.shabashoff.ui.PlayerMenu
 import ru.shabashoff.ui.UiUtils
 
 abstract class Player(var curPoint: IntPoint, var searchingGift: GiftType) : RigidSprite(UiUtils.getIconSprite("PAUSE")) {
 
     private val map: GameMap = GameUtils.curGameSession!!.map
     private val sess: GameSession = GameUtils.curGameSession!!
+
+    private val menu: PlayerMenu = PlayerMenu(UiUtils.getIconSprite("PAUSE"), "test", Point(0.10f, 0.80f))
 
     init {
         touchable = Touchable.disabled

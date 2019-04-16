@@ -20,7 +20,6 @@ class TextLabel : Label {
         this.x = UiUtils.calcX(x, 0f)
         this.y = UiUtils.calcY(y, 0f)
         setPosition(this.x, this.y)
-
     }
 
     constructor(text: String) : super(text, getLabelStyle())
