@@ -10,7 +10,7 @@ import ru.shabashoff.ui.elements.DefaultTextButton
 class StatisticMenu : MainMenuAbstract() {
 
     private var back: DefaultTextButton = DefaultTextButton(0.5f, 0.2f, 0.2f, 0.1f, "Back") { UiUtils.menuPainter?.mainMenu() }
-    private var statistic: DefaultSkinButton = DefaultSkinButton(0.5f, 0.6f, 0.6f, 0.5f, UiUtils.getIconSprite("PANEL")) { } //TODO remove button add something
+    private var statistic: DefaultSkinButton = DefaultSkinButton(0.5f, 0.6f, 0.6f, 0.5f, UiUtils.getSprite("PANEL")) { } //TODO remove button add something
 //    private var nameLabel: TextLabel = TextLabel(0.2f, 0.2f,  "Anya durak")
 
     private var tField: TextField

@@ -113,7 +113,6 @@ class GameCell(val type: GameCellType, var gift: Gift?, private var ip: IntPoint
 
     fun setIp(point: IntPoint) {
         ip = point
-        gift?.point = point
     }
 
     fun getIp(): IntPoint {

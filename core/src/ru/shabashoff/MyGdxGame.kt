@@ -43,9 +43,9 @@ class MyGdxGame : ApplicationAdapter() {
 
         batch.begin()
 
-        for (sprite in UiUtils.getSprites()) {
+        /*for (sprite in UiUtils.getSprites()) {
             sprite.draw(batch)
-        }
+        }*/
 
         batch.end()
     }

@@ -5,7 +5,7 @@ import ru.shabashoff.ui.elements.DefaultSkinButton
 import ru.shabashoff.ui.menu.game.MenuInterface
 
 open class MainMenuAbstract : MenuInterface {
-    private val settingButton: DefaultSkinButton = DefaultSkinButton(0.9f, 0.9f, 0.07f, 0.07f, UiUtils.getIconSprite("SETTINGS")) { UiUtils.menuPainter?.onClickSetting() }
+    private val settingButton: DefaultSkinButton = DefaultSkinButton(0.9f, 0.9f, 0.07f, 0.07f, UiUtils.getSprite("PAUSE")) { UiUtils.menuPainter?.onClickSetting() }
 
 
     init {

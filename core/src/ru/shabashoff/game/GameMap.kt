@@ -126,7 +126,7 @@ class GameMap {
     private fun generateGift(p: IntPoint): Gift? {
         val i = random.nextInt(GiftType.values().size * 2)
 
-        if (i < GiftType.values().size) return Gift(p, GiftType.values()[i])
+        if (i < GiftType.values().size) return Gift(GiftType.values()[i])
         return null
     }
 

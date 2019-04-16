@@ -21,6 +21,6 @@ enum class GameCellType(val left: Boolean, val up: Boolean, val right: Boolean, 
     }
 
     fun getSprite(): Sprite {
-        return UiUtils.getRouteSprite(toString())
+        return UiUtils.getSprite(toString())
     }
 }

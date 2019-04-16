@@ -7,7 +7,7 @@ import ru.shabashoff.ui.elements.DefaultTextButton
 class RuleMenu : MainMenuAbstract() {
 
 
-    var ruleMenu: DefaultSkinButton = DefaultSkinButton(0.5f, 0.6f, 0.6f, 0.5f, UiUtils.getIconSprite("PANEL")) { } //TODO remove button add something
+    var ruleMenu: DefaultSkinButton = DefaultSkinButton(0.5f, 0.6f, 0.6f, 0.5f, UiUtils.getSprite("PANEL")) { } //TODO remove button add something
     var back: DefaultTextButton = DefaultTextButton(0.5f, 0.2f, 0.2f, 0.1f, "Back") { UiUtils.menuPainter?.mainMenu() }
 
 

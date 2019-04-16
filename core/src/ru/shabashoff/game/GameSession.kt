@@ -37,7 +37,7 @@ class GameSession {
     }
 
     fun loadPlayers() {
-        players = listOf(RealPlayer(IntPoint(0, 0), GiftType.SETTINGS), RealPlayer(IntPoint(3, 3), GiftType.SETTINGS))
+        players = listOf(RealPlayer(IntPoint(0, 0), GiftType.CAKE), RealPlayer(IntPoint(3, 3), GiftType.CAKE))
         curPlayer = players[0]
     }
 
@@ -112,7 +112,7 @@ class GameSession {
     }
 
     fun giftFounded() {
-        curPlayer.searchingGift = GiftType.SETTINGS//TODO next gift
+        curPlayer.searchingGift = GiftType.CAKE//TODO next gift
     }
 
     private fun nextPlayer() {

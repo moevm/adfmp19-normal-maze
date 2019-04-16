@@ -12,10 +12,7 @@ import ru.shabashoff.ui.menu.MenuPainter
 
 object UiUtils {
 
-    private val routesSkin: Skin = Skin()
-    private val btnDefaultSkin: Skin = Skin()
-
-    private val sprites: MutableList<Sprite> = ArrayList()
+    private val textures: Skin = Skin()
 
     private var width: Float = 0.0f
     private var height: Float = 0.0f
@@ -30,18 +27,14 @@ object UiUtils {
         this.width = Gdx.graphics.width.toFloat()
         this.height = Gdx.graphics.height.toFloat()
 
-        val routesTextureAtlas = TextureAtlas(Gdx.files.internal("routes.atlas"))
-        routesSkin.addRegions(routesTextureAtlas)
-
-        val buttonDefaultAtlas = TextureAtlas(Gdx.files.internal("btns.atlas"))
-        btnDefaultSkin.addRegions(buttonDefaultAtlas)
+        textures.addRegions(TextureAtlas(Gdx.files.internal("sprites.atlas")))
 
         btnDefaultStyle = TextButton.TextButtonStyle()
 
         val buttonDefaultFont = BitmapFont()
         btnDefaultStyle.font = buttonDefaultFont
-        btnDefaultStyle.up = btnDefaultSkin.getDrawable("BUTTON")
-        btnDefaultStyle.down = btnDefaultSkin.getDrawable("BUTTON_PRESSED")
+        btnDefaultStyle.up = textures.getDrawable("BUTTON")
+        btnDefaultStyle.down = textures.getDrawable("BUTTON_PRESSED")
     }
 
     fun calcX(x: Float, w: Float): Float {
@@ -60,28 +53,12 @@ object UiUtils {
         return hgt * height
     }
 
-    fun getRouteSprite(name: String): Sprite {
-        return Sprite(routesSkin.getSprite(name))
-    }
-
     fun getStage(): Stage {
         return Gdx.input.inputProcessor as Stage
     }
 
-    fun getIconSprite(name: String): Sprite {
-        return Sprite(btnDefaultSkin.getSprite(name))
-    }
-
-    fun addSprite(sprite: Sprite) {
-        sprites.add(sprite)
-    }
-
-    fun removeSprite(sprite: Sprite) {
-        sprites.remove(sprite)
-    }
-
-    fun getSprites(): List<Sprite> {
-        return sprites
+    fun getSprite(name: String): Sprite {
+        return Sprite(textures.getSprite(name))
     }
 
     fun setPercentBounds(x: Float, y: Float, w: Float, h: Float, actor: Actor) {

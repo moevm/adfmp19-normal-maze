@@ -6,7 +6,7 @@ import ru.shabashoff.ui.elements.DefaultTextButton
 
 class StartMenu : MainMenuAbstract() {
 
-    private val settingButton: DefaultSkinButton = DefaultSkinButton(0.9f, 0.9f, 0.07f, 0.07f, UiUtils.getIconSprite("SETTINGS")) { UiUtils.menuPainter?.onClickSetting() }
+    private val settingButton: DefaultSkinButton = DefaultSkinButton(0.9f, 0.9f, 0.07f, 0.07f, UiUtils.getSprite("PAUSE")) { UiUtils.menuPainter?.onClickSetting() }
 
     private val game: DefaultTextButton = DefaultTextButton(0.5f, 0.70f, 0.2f, 0.1f, "Game") { UiUtils.menuPainter?.chooseGame() }
     private val rules: DefaultTextButton = DefaultTextButton(0.5f, 0.5f, 0.2f, 0.1f, "Rules") { UiUtils.menuPainter?.rules() }
