@@ -1,5 +1,6 @@
 package ru.shabashoff.ui.menu.main
 
+import com.badlogic.gdx.graphics.Color
 import com.sun.org.apache.xerces.internal.impl.xs.opti.DefaultText
 import ru.shabashoff.ui.UiUtils
 import ru.shabashoff.ui.elements.DefaultTextButton
@@ -7,10 +8,10 @@ import ru.shabashoff.ui.elements.TextEdit
 import ru.shabashoff.ui.elements.TextLabel
 
 class ChooseName:MainMenuAbstract() {
-    private val player1_text:TextLabel = TextLabel(0.2f,0.58f,"player1")
-    private val player2_text:TextLabel = TextLabel(0.550f,0.58f,"player2")
-    private val player3_text:TextLabel = TextLabel(0.20f,0.38f,"player3")
-    private val player4_text:TextLabel = TextLabel(0.55f,0.38f,"player4")
+    private val player1_text:TextLabel = TextLabel(0.2f,0.58f,"player1", Color.WHITE)
+    private val player2_text:TextLabel = TextLabel(0.550f,0.58f,"player2",Color.WHITE)
+    private val player3_text:TextLabel = TextLabel(0.20f,0.38f,"player3",Color.WHITE)
+    private val player4_text:TextLabel = TextLabel(0.55f,0.38f,"player4",Color.WHITE)
 
     private val player1:TextEdit = TextEdit(0.4f, 0.6f, 0.2f, 0.1f, "player1")
     private val player2:TextEdit = TextEdit(0.75f, 0.6f, 0.2f, 0.1f, "player2")

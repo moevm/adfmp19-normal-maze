@@ -17,10 +17,11 @@ class TextLabel : Label {
         UiUtils.getStage().addActor(this)
     }
 
-    constructor(x: Float, y: Float, text: String) : super(text, getLabelStyle()) {
+    constructor(x: Float, y: Float, text: String, color: Color) : super(text, getLabelStyle()) {
         this.x = UiUtils.calcX(x, 0f)
         this.y = UiUtils.calcY(y, 0f)
         setPosition(this.x, this.y)
+        this.color = color
     }
 
     constructor(text: String) : super(text, getLabelStyle())
