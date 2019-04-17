@@ -19,6 +19,7 @@ class MyGdxGame : ApplicationAdapter() {
 
 
     override fun create() {
+
         super.create()
 
         batch = SpriteBatch()

@@ -8,12 +8,12 @@ import ru.shabashoff.primitives.RigidSprite
 import ru.shabashoff.ui.elements.TextLabel
 import ru.shabashoff.ui.menu.game.MenuInterface
 
-class PlayerMenu(gft: Gift, playerIcon: Sprite, name: String, point: Point) : MenuInterface {
+class PlayerMenu(gft: Gift, playerIcon: Sprite, name: String, val point: Point) : MenuInterface {
 
     val playerName = TextLabel(point.x, point.y, "Name: $name")
     val playerScore = TextLabel(point.x, point.y - 0.05f, "Score: 0")
     val userIcon = RigidSprite(playerIcon)
-    val giftIcon = RigidSprite(Sprite(gft.sprite))
+    var giftIcon = RigidSprite(Sprite(gft.sprite))
 
     init {
         userIcon.setPosition(UiUtils.calcX(point.x, 0f), UiUtils.calcY(point.y + 0.05f, 0f))
@@ -25,7 +25,10 @@ class PlayerMenu(gft: Gift, playerIcon: Sprite, name: String, point: Point) : Me
     }
 
     fun changeGift(sprite: Sprite) {
-        giftIcon.sprite = sprite
+        giftIcon.remove()
+
+        giftIcon = RigidSprite(sprite)
+        giftIcon.setPosition(UiUtils.calcX(point.x, 0f), UiUtils.calcY(point.y - 0.15f, 0f))
     }
 
     override fun dispose() {

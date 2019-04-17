@@ -10,7 +10,6 @@ open class RigidSprite(sprite: Sprite) : Actor() {
     var sprite: Sprite = sprite
         set(value) {
             field = value
-            positionChanged()
             sizeChanged()
         }
 

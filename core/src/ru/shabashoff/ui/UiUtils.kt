@@ -19,9 +19,7 @@ object UiUtils {
 
     lateinit var btnDefaultStyle: TextButton.TextButtonStyle
 
-
     var menuPainter: MenuPainter? = null
-
 
     fun init() {
         this.width = Gdx.graphics.width.toFloat()

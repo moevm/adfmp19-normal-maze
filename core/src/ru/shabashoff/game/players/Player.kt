@@ -84,10 +84,16 @@ abstract class Player(var curPoint: IntPoint, searchingGift: Gift) : RigidSprite
             curMenuPos = (curMenuPos + 1) % poss.size
             return playerMenu
         }
+
+        fun clear() {
+            cur = 0
+            curMenuPos = 0
+        }
     }
 
     override fun remove(): Boolean {
+        Player.clear()
+        menu.dispose()
         return super.remove()
-        menu
     }
 }
