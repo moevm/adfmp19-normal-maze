@@ -1,5 +1,6 @@
 package ru.shabashoff.ui.elements
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import ru.shabashoff.ui.UiUtils
@@ -33,9 +34,10 @@ class TextLabel : Label {
 
             var labelStyle = Label.LabelStyle()
             labelStyle.background = null
+
             labelStyle.font = BitmapFont()
 
-            return Label.LabelStyle(BitmapFont(), null)
+            return Label.LabelStyle(BitmapFont(), Color.GRAY)
         }
     }
 

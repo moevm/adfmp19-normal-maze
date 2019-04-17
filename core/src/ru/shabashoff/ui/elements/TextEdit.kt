@@ -1,6 +1,8 @@
 package ru.shabashoff.ui.elements
 
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.Color.BLACK
+import com.badlogic.gdx.graphics.Color.WHITE
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import ru.shabashoff.ui.UiUtils
@@ -35,6 +37,7 @@ class TextEdit : TextField {
             val textFieldStyle = TextField.TextFieldStyle()
             textFieldStyle.font = BitmapFont()
             textFieldStyle.fontColor = Color.WHITE
+
             return textFieldStyle
         }
     }
