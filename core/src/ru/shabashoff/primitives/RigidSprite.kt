@@ -6,7 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import ru.shabashoff.ui.UiUtils
 
-open class RigidSprite(val sprite: Sprite) : Actor() {
+open class RigidSprite(sprite: Sprite) : Actor() {
+    var sprite: Sprite = sprite
+        set(value) {
+            field = value
+            positionChanged()
+            sizeChanged()
+        }
 
     init {
         touchable = Touchable.enabled

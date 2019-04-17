@@ -15,8 +15,7 @@ class GameSession {
     private val widthMap: Float = UiUtils.calcWidth(0.5f)
     private val heightMap: Float = UiUtils.calcHeight(0.8f)
 
-
-    val map: GameMap = GameMap(5, 5, widthMap, heightMap, paddingX, paddingY)
+    val map: GameMap = GameMap(12, 5, 5, widthMap, heightMap, paddingX, paddingY)
 
     private lateinit var players: List<Player>
     private lateinit var curPlayer: Player
@@ -37,7 +36,7 @@ class GameSession {
     }
 
     fun loadPlayers() {
-        players = listOf(RealPlayer(IntPoint(0, 0), GiftType.CAKE), RealPlayer(IntPoint(3, 3), GiftType.CAKE))
+        players = listOf(RealPlayer(IntPoint(0, 0), map.getGift()), RealPlayer(IntPoint(3, 3), map.getGift()))
         curPlayer = players[0]
     }
 
@@ -112,7 +111,7 @@ class GameSession {
     }
 
     fun giftFounded() {
-        curPlayer.searchingGift = GiftType.CAKE//TODO next gift
+        curPlayer.searchingGift = map.getGift()//TODO next gift
     }
 
     private fun nextPlayer() {

@@ -1,10 +1,11 @@
 package ru.shabashoff.game.players
 
 import ru.shabashoff.game.GameCell
+import ru.shabashoff.game.Gift
 import ru.shabashoff.game.GiftType
 import ru.shabashoff.primitives.IntPoint
 
-class Bot(curPoint: IntPoint, searchingGift: GiftType) : Player(curPoint, searchingGift) {
+class Bot(curPoint: IntPoint, searchingGift: Gift) : Player(curPoint, searchingGift) {
 
     val setPlayer: MutableSet<IntPoint> = HashSet()
     val setCell: MutableSet<IntPoint> = HashSet()

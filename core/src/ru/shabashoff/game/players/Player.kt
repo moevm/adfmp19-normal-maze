@@ -9,12 +9,23 @@ import ru.shabashoff.primitives.RigidSprite
 import ru.shabashoff.ui.PlayerMenu
 import ru.shabashoff.ui.UiUtils
 
-abstract class Player(var curPoint: IntPoint, var searchingGift: GiftType) : RigidSprite(nextIcon()) {
+abstract class Player(var curPoint: IntPoint, searchingGift: Gift) : RigidSprite(nextIcon()) {
+
+    var searchingGift: Gift = searchingGift
+        set(value) {
+            field = value
+            menu.changeGift(Sprite(value.sprite))
+        }
+    private var score: Int = 0
+        set(value) {
+            field = value
+            menu.newScore(value)
+        }
+
+    private val menu: PlayerMenu = generateMenu(searchingGift, Sprite(sprite))
 
     private val map: GameMap = GameUtils.curGameSession!!.map
     private val sess: GameSession = GameUtils.curGameSession!!
-
-    private val menu: PlayerMenu = PlayerMenu(searchingGift,Sprite(sprite), "test", Point(0.10f, 0.80f))
 
     init {
         touchable = Touchable.disabled
@@ -43,9 +54,10 @@ abstract class Player(var curPoint: IntPoint, var searchingGift: GiftType) : Rig
 
         val gift = cell.gift
 
-        if (gift != null && gift.type == searchingGift) {
+        if (gift != null && gift.type == searchingGift.type) {
             cell.gift = null
             sess.giftFounded()
+            score++
         }
     }
 
@@ -54,6 +66,10 @@ abstract class Player(var curPoint: IntPoint, var searchingGift: GiftType) : Rig
     }
 
     companion object {
+        private val poss: Array<Point> = arrayOf(Point(0.10f, 0.80f), Point(0.10f, 0.30f), Point(0.90f, 0.80f), Point(0.90f, 0.30f))
+        private var curMenuPos: Int = 0
+
+
         private var cur: Int = 0
         private val len = PlayerIcon.values().size
 
@@ -62,5 +78,16 @@ abstract class Player(var curPoint: IntPoint, var searchingGift: GiftType) : Rig
             cur = (cur + 1) % len
             return UiUtils.getSprite(name)
         }
+
+        fun generateMenu(gift: Gift, sprite: Sprite): PlayerMenu {
+            var playerMenu = PlayerMenu(gift, sprite, "test", poss[curMenuPos])
+            curMenuPos = (curMenuPos + 1) % poss.size
+            return playerMenu
+        }
+    }
+
+    override fun remove(): Boolean {
+        return super.remove()
+        menu
     }
 }

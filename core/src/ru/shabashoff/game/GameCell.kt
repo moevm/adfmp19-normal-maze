@@ -11,7 +11,13 @@ import ru.shabashoff.primitives.Point
 import ru.shabashoff.primitives.RigidSprite
 
 
-class GameCell(val type: GameCellType, var gift: Gift?, private var ip: IntPoint, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
+class GameCell(val type: GameCellType, private var ip: IntPoint, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
+
+    var gift: Gift? = null
+        set(v) {
+            field = v
+            positionChanged()
+        }
 
     private val ANIMATE_DURATION = 500f
 
@@ -26,7 +32,6 @@ class GameCell(val type: GameCellType, var gift: Gift?, private var ip: IntPoint
 
     init {
         setBounds(point.x, point.y, w, h)
-
 
         addListener(object : ClickListener() {
             override fun touchDragged(event: InputEvent?, x: Float, y: Float, pointer: Int) {

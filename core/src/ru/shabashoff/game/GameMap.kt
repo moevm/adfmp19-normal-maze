@@ -3,10 +3,14 @@ package ru.shabashoff.game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils.random
 import ru.shabashoff.primitives.*
+import java.lang.IllegalArgumentException
 
 class GameMap {
     private val map: MutableList<MutableList<GameCell>>
     private var outerCell: GameCell
+
+    private val prizes: MutableList<Gift> = ArrayList()
+    private val playerPrizes: MutableList<Gift> = ArrayList()
 
     private val widthMap: Float
     private val heightMap: Float
@@ -22,7 +26,11 @@ class GameMap {
 
     private val padding: Float = 1.0f
 
-    constructor(w: Int, h: Int, widthMap: Float, heightMap: Float, paddingX: Float, paddingY: Float) {
+    constructor(prizeCount: Int, w: Int, h: Int, widthMap: Float, heightMap: Float, paddingX: Float, paddingY: Float) {
+        if (prizeCount > GiftType.values().size) {
+            throw IllegalArgumentException("Cant create map with $prizeCount gifts, because gifts only ${GiftType.values().size}")
+        }
+
         this.w = w
         this.h = h
         this.paddingX = paddingX
@@ -41,9 +49,11 @@ class GameMap {
             heightElem = hEl
         }
 
-        map = MutableList(w) { i -> MutableList(h) { j -> GameCell(getRandType(), generateGift(IntPoint(i, j)), IntPoint(i, j), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
-        outerCell = GameCell(getRandType(), generateGift(IntPoint(-1, -1)), IntPoint(-1, -1), Point(0f, 0f), widthElem, heightElem)
+        map = MutableList(w) { i -> MutableList(h) { j -> GameCell(getRandType(), IntPoint(i, j), Point(convertX(i), convertY(j)), widthElem, heightElem) } }
+        outerCell = GameCell(getRandType(), IntPoint(-1, -1), Point(0f, 0f), widthElem, heightElem)
         outerCell.isDraggable = true
+
+        fillPrizes(prizeCount)
     }
 
     fun convertX(x: Int): Float {
@@ -54,11 +64,6 @@ class GameMap {
         return paddingY + (heightElem + padding) * y.toFloat()
     }
 
-
-    private fun getRandType(): GameCellType {
-        val i = random.nextInt(GameCellType.values().size)
-        return GameCellType.values()[i]
-    }
 
     fun onDrag(cell: GameCell, x: Float, y: Float) {
         /*val center = cell.getCenter()
@@ -79,10 +84,6 @@ class GameMap {
 
     fun deConvertY(y: Float): Int {
         return ((y - paddingY) / (heightElem + padding)).toInt()
-    }
-
-    private fun isPointOnMap(p: Point): Boolean {
-        return !(p.x < paddingX || p.y < paddingY || p.x > paddingX + widthMap || p.y > paddingY + heightMap)
     }
 
     fun onClick(cell: GameCell) {
@@ -123,11 +124,47 @@ class GameMap {
         return null
     }
 
-    private fun generateGift(p: IntPoint): Gift? {
-        val i = random.nextInt(GiftType.values().size * 2)
+    fun checkConstraints() {
+        for ((i, mutableList) in map.withIndex()) {
+            for ((j, cl) in mutableList.withIndex()) {
+                if (!cl.getIp().equals(IntPoint(i, j))) {
+                    println("Error constraints!!!")
+                    println("i:$i j:$j")
+                    println("x:${cl.getIp().x} y:${cl.getIp().y}")
+                }
+            }
+        }
 
-        if (i < GiftType.values().size) return Gift(GiftType.values()[i])
-        return null
+        println("End check")
+    }
+
+    fun getNewPlayerPosition(point: IntPoint): IntPoint {
+        if (isValidPoint(point)) return point
+
+        while (point.x < 0) point.x += w
+        while (point.y < 0) point.y += h
+
+        while (point.x >= w) point.x %= w
+        while (point.y >= h) point.y %= h
+
+        return point
+    }
+
+    fun getGift(): Gift {
+        var pr = prizes.removeAt(prizes.size - 1)
+
+        playerPrizes.add(pr)
+
+        return pr
+    }
+
+    private fun isPointOnMap(p: Point): Boolean {
+        return !(p.x < paddingX || p.y < paddingY || p.x > paddingX + widthMap || p.y > paddingY + heightMap)
+    }
+
+    private fun getRandType(): GameCellType {
+        val i = random.nextInt(GameCellType.values().size)
+        return GameCellType.values()[i]
     }
 
     private fun moveXLine(x: Int, y: Int) {
@@ -197,19 +234,7 @@ class GameMap {
         afterMove()
     }
 
-    fun getNewPlayerPosition(point: IntPoint): IntPoint {
-        if (isValidPoint(point)) return point
-
-        while (point.x < 0) point.x += w
-        while (point.y < 0) point.y += h
-
-        while (point.x >= w) point.x %= w
-        while (point.y >= h) point.y %= h
-
-        return point
-    }
-
-    fun isValidPoint(point: IntPoint): Boolean {
+    private fun isValidPoint(point: IntPoint): Boolean {
         return ((point.x < 0 || point.x >= w) || (point.y < 0 || point.y >= h)).not()
     }
 
@@ -218,18 +243,24 @@ class GameMap {
 //        GameUtils.curGameSession?.afterPut()
     }
 
-    fun checkConstraints() {
-        for ((i, mutableList) in map.withIndex()) {
-            for ((j, cl) in mutableList.withIndex()) {
-                if (!cl.getIp().equals(IntPoint(i, j))) {
-                    println("Error constraints!!!")
-                    println("i:$i j:$j")
-                    println("x:${cl.getIp().x} y:${cl.getIp().y}")
-                }
-            }
+    private fun fillPrizes(count: Int) {
+        var types = GiftType.values().copyOfRange(0, count)
+
+        for (pr in types) {
+            prizes.add(Gift(pr))
         }
 
-        println("End check")
+        var x: Int
+        var y: Int
+
+        for (pr in prizes) {
+            do {
+                x = random.nextInt(map.size)
+                y = random.nextInt(map[x].size)
+            } while (map[x][y].gift != null)
+            map[x][y].gift = pr
+            //map[x][y].moveBy(0f, 0f)//Set position to gift
+        }
     }
 
     private fun outerToPoint() {
