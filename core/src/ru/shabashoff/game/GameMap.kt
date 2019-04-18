@@ -6,8 +6,12 @@ import ru.shabashoff.primitives.*
 import java.lang.IllegalArgumentException
 
 class GameMap {
-    private val map: MutableList<MutableList<GameCell>>
-    private var outerCell: GameCell
+    val map: MutableList<MutableList<GameCell>>
+
+    val w: Int
+    val h: Int
+
+    var outerCell: GameCell
 
     private val prizes: MutableList<Gift> = ArrayList()
     private val playerPrizes: MutableList<Gift> = ArrayList()
@@ -20,9 +24,6 @@ class GameMap {
 
     private val paddingX: Float
     private val paddingY: Float
-
-    private val w: Int
-    private val h: Int
 
     private val padding: Float = 1.0f
 
@@ -247,7 +248,7 @@ class GameMap {
         var types = GiftType.values().copyOfRange(0, count)
 
         for (pr in types) {
-            prizes.add(Gift(pr))
+            prizes.add(Gift(pr, IntPoint(-1, -1)))
         }
 
         var x: Int

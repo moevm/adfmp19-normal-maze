@@ -17,7 +17,7 @@ enum class GameCellType(val left: Boolean, val up: Boolean, val right: Boolean, 
     SPLIT_W(true, true, false, true);
 
     fun getNum() {
-        print(toString())
+        //print(toString())
     }
 
     fun getSprite(): Sprite {

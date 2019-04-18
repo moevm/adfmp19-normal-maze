@@ -1,9 +1,10 @@
 package ru.shabashoff.game
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import ru.shabashoff.primitives.IntPoint
 import ru.shabashoff.ui.UiUtils
 
-class Gift(val type: GiftType) {
+class Gift(val type: GiftType, var point: IntPoint) {
     val sprite: Sprite = UiUtils.getSprite(type.toString())
 
     init {

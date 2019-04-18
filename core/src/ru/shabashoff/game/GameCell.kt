@@ -11,11 +11,12 @@ import ru.shabashoff.primitives.Point
 import ru.shabashoff.primitives.RigidSprite
 
 
-class GameCell(val type: GameCellType, private var ip: IntPoint, point: Point, private val w: Float, private val h: Float) : RigidSprite(type.getSprite()) {
+class GameCell(val type: GameCellType, private var ip: IntPoint, point: Point, val w: Float, val h: Float) : RigidSprite(type.getSprite()) {
 
     var gift: Gift? = null
         set(v) {
             field = v
+            field?.sprite?.setSize(w * 0.7f, h * 0.7f)
             positionChanged()
         }
 
@@ -144,6 +145,7 @@ class GameCell(val type: GameCellType, private var ip: IntPoint, point: Point, p
 
     override fun positionChanged() {
         super.positionChanged()
+        gift?.point = ip
         gift?.sprite?.setPosition(x, y)
     }
 

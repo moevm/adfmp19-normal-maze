@@ -14,11 +14,11 @@ class PlayerMenu(gft: Gift, playerIcon: Sprite, name: String, val point: Point) 
     val playerName = TextLabel(point.x, point.y, "Name: $name", Color.WHITE)
     val playerScore = TextLabel(point.x, point.y - 0.05f, "Score: 0",Color.WHITE)
     val userIcon = RigidSprite(playerIcon)
-    var giftIcon = RigidSprite(Sprite(gft.sprite))
+    var giftIcon = RigidSprite(Sprite(UiUtils.getSprite(gft.type.toString())))
 
     init {
         userIcon.setPosition(UiUtils.calcX(point.x, 0f), UiUtils.calcY(point.y + 0.05f, 0f))
-        giftIcon.setPosition(UiUtils.calcX(point.x, 0f), UiUtils.calcY(point.y - 0.15f, 0f))
+        giftIcon.setBounds(UiUtils.calcX(point.x, 0f), UiUtils.calcY(point.y - 0.15f, 0f), 50f, 50f)
     }
 
     fun newScore(score: Int) {

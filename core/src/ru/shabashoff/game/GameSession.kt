@@ -1,13 +1,18 @@
 package ru.shabashoff.game
 
-import ru.shabashoff.game.players.Player
-import ru.shabashoff.game.players.RealPlayer
+import ru.shabashoff.game.players.*
 import ru.shabashoff.primitives.IntPoint
 import ru.shabashoff.primitives.LineType
 import ru.shabashoff.primitives.MoveTo
 import ru.shabashoff.ui.UiUtils
+import java.lang.IllegalStateException
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
-class GameSession {
+class GameSession(val initPlayers: List<InitPlayer>) {
+
+    private val W = 7
+    private val H = 7
 
     private val paddingX: Float = UiUtils.calcWidth(0.25f)
     private val paddingY: Float = UiUtils.calcHeight(0.15f)
@@ -15,9 +20,9 @@ class GameSession {
     private val widthMap: Float = UiUtils.calcWidth(0.5f)
     private val heightMap: Float = UiUtils.calcHeight(0.8f)
 
-    val map: GameMap = GameMap(12, 5, 5, widthMap, heightMap, paddingX, paddingY)
+    val map: GameMap = GameMap(10, W, H, widthMap, heightMap, paddingX, paddingY)
 
-    private lateinit var players: List<Player>
+    private var players: MutableList<Player> = ArrayList()
     private lateinit var curPlayer: Player
 
     private var curNumPlayer: Int = 0
@@ -25,6 +30,8 @@ class GameSession {
     private var gameMode: GameMode = GameMode.FIRST
 
     private val reachableCells: MutableSet<GameCell> = HashSet()
+
+    private var executor: Executor = Executors.newSingleThreadExecutor()
 
     init {
         map.checkConstraints()
@@ -36,35 +43,39 @@ class GameSession {
     }
 
     fun loadPlayers() {
-        players = listOf(RealPlayer(IntPoint(0, 0), map.getGift()), RealPlayer(IntPoint(3, 3), map.getGift()))
+        for (ip in initPlayers) {
+            if (ip.playerType == PlayerType.BOT) {
+                players.add(Bot(ip, map.getGift()))
+            } else {
+                players.add(RealPlayer(ip, map.getGift()))
+            }
+        }
+
         curPlayer = players[0]
     }
 
+
     fun onClick(cell: GameCell) {
         println("Onclick sell:$cell")
-        if (curPlayer.isBot() || gameMode == GameMode.FIRST || reachableCells.contains(cell).not()) return
+        if (curPlayer.isBot()) return
 
-        map.checkConstraints()
-
-        val point = cell.getCenter()
-
-        curPlayer.move(IntPoint(map.deConvertX(point.x), map.deConvertY(point.y)))
-
-        gameMode = GameMode.FIRST
-        nextPlayer()
-        map.onClick(cell)
+        clickWithPermission(cell)
     }
 
     fun onDrag(cell: GameCell, x: Float, y: Float) {
         if (curPlayer.isBot() || gameMode == GameMode.SECOND) return
-        //TODO: Check permission
 
         map.onDrag(cell, x, y)
     }
 
     fun onPut(cell: GameCell) {
-        if (curPlayer.isBot() || gameMode == GameMode.SECOND) return
-        //TODO: Check permission
+        if (curPlayer.isBot()) return
+
+        putWithPermission(cell)
+    }
+
+    private fun putWithPermission(cell: GameCell) {
+        if (gameMode == GameMode.SECOND) return
 
         val onPut = map.onPut(cell)
         if (onPut != null) {
@@ -77,6 +88,20 @@ class GameSession {
 
             afterPut()
         }
+    }
+
+    private fun clickWithPermission(cell: GameCell) {
+        if (gameMode == GameMode.FIRST || reachableCells.contains(cell).not()) return
+
+        map.checkConstraints()
+
+        val point = cell.getCenter()
+
+        curPlayer.move(IntPoint(map.deConvertX(point.x), map.deConvertY(point.y)))
+
+        gameMode = GameMode.FIRST
+        nextPlayer()
+        map.onClick(cell)
     }
 
     private fun afterPut() {
@@ -118,11 +143,38 @@ class GameSession {
         curNumPlayer = (curNumPlayer + 1) % players.size
         curPlayer = players[curNumPlayer]
 
-        /*if (curPlayer.isBot()) {
-            var bot: Bot = curPlayer as Bot
+        if (curPlayer.isBot()) {
+            executor.execute {
+                val bot: Bot = curPlayer as Bot
+                println("Bot prepare fields")
+                Thread.sleep(500)
+                bot.prepareMove()
+                println("Bot thinking")
+                Thread.sleep(500)
+
+                val ptp = bot.getPointToPut()
+                println("Bot did first choose. Move cell to $ptp")
+                putWithPermission(map.getCell(ptp)!!)
+                Thread.sleep(500)
+
+                val ptm = bot.getPointToPut()
+                println("Bot did second choose. Going to $ptm")
+                clickWithPermission(map.getCell(bot.getPointToMove())!!)
+                Thread.sleep(500)
+
+                map.checkConstraints()
+
+                println("Bot is done!")
+
+                if (curPlayer == bot) {
+                    throw IllegalStateException("Bot did illegal move!!!")
+                }
+            }
 
 
-        }*/
+
+            println("Bot moved!!!")
+        }
     }
 
     enum class GameMode {
