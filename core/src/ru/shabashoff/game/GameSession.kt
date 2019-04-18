@@ -55,7 +55,7 @@ class GameSession(val initPlayers: List<InitPlayer>) {
         }
 
         curPlayer = players[0]
-
+        text = TextLabel(0.45f,0.10f, "${curPlayer.playerInit.name} move", Color.WHITE)
     }
 
 
@@ -147,8 +147,7 @@ class GameSession(val initPlayers: List<InitPlayer>) {
         curNumPlayer = (curNumPlayer + 1) % players.size
         curPlayer = players[curNumPlayer]
 
-
-        text = TextLabel(0.45f,0.10f, "${curPlayer.playerInit.name} move", Color.WHITE)
+        text.setText("${curPlayer.playerInit.name} move")
         if (curPlayer.isBot()) {
             executor.execute {
                 val bot: Bot = curPlayer as Bot
