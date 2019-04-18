@@ -1,5 +1,9 @@
 package ru.shabashoff.ui.menu
 
+import ru.shabashoff.game.players.InitPlayer
+import ru.shabashoff.game.players.Player
+import ru.shabashoff.statistic.PlayerStatistic
+import ru.shabashoff.statistic.StatisticService
 import ru.shabashoff.ui.menu.game.GameWithBots
 import ru.shabashoff.ui.menu.game.GameWithPlayers
 import ru.shabashoff.ui.menu.game.MenuInterface
@@ -99,6 +103,16 @@ class MenuPainter {
     fun exitToMainMenu() {
         dispose()
         curMenu = StartMenu()
+    }
+
+    fun win(player: Player) {
+        var name = player.playerInit.name
+        var score = player.score
+        StatisticService.addPlayer(PlayerStatistic(name, score))
+
+        dispose()
+
+        curMenu = MenuEnd(name,score)
     }
 
     fun dispose() {

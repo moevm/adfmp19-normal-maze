@@ -39,6 +39,7 @@ class TextEdit : TextField {
             textFieldStyle.font = BitmapFont()
             textFieldStyle.fontColor = Color.WHITE
 
+
             return textFieldStyle
         }
     }

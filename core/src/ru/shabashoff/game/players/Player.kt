@@ -22,7 +22,7 @@ abstract class Player(val playerInit: InitPlayer, searchingGift: Gift) : RigidSp
 
     var curPoint: IntPoint = playerInit.startPosition.getPoint(map.w, map.h)
 
-    private var score: Int = 0
+    internal var score: Int = 0
         set(value) {
             field = value
             menu.newScore(value)

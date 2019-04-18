@@ -1,5 +1,6 @@
 package ru.shabashoff.game
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import ru.shabashoff.game.players.*
 import ru.shabashoff.primitives.IntPoint
@@ -23,7 +24,7 @@ class GameSession(val initPlayers: List<InitPlayer>) {
     private val widthMap: Float = UiUtils.calcWidth(0.5f)
     private val heightMap: Float = UiUtils.calcHeight(0.8f)
 
-    val map: GameMap = GameMap(10, W, H, widthMap, heightMap, paddingX, paddingY)
+    val map: GameMap = GameMap(5, W, H, widthMap, heightMap, paddingX, paddingY)
 
     private var players: MutableList<Player> = ArrayList()
     private lateinit var curPlayer: Player
@@ -34,8 +35,6 @@ class GameSession(val initPlayers: List<InitPlayer>) {
 
     private val reachableCells: MutableSet<GameCell> = HashSet()
 
-    private var executor: Executor = Executors.newSingleThreadExecutor()
-
     init {
         map.checkConstraints()
     }
@@ -43,6 +42,7 @@ class GameSession(val initPlayers: List<InitPlayer>) {
     fun dispose() {
         players.forEach { p -> p.remove() }
         map.dispose()
+        text.remove()
     }
 
     fun loadPlayers() {
@@ -141,7 +141,8 @@ class GameSession(val initPlayers: List<InitPlayer>) {
 
     fun giftFounded() {
         if (map.getGiftSize() <= 0) {
-            //TODO check win
+            players.sortBy { p -> -p.score }
+            UiUtils.menuPainter!!.win(players.get(0))
             return
         }
 
@@ -154,7 +155,7 @@ class GameSession(val initPlayers: List<InitPlayer>) {
 
         text.setText("${curPlayer.playerInit.name} move")
         if (curPlayer.isBot()) {
-            executor.execute {
+            Gdx.app.postRunnable {
                 val bot: Bot = curPlayer as Bot
                 println("Bot prepare fields")
                 Thread.sleep(500)
