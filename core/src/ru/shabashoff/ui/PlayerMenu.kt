@@ -11,6 +11,7 @@ import ru.shabashoff.ui.menu.game.MenuInterface
 
 class PlayerMenu(gft: Gift, playerIcon: Sprite, name: String, val point: Point) : MenuInterface {
 
+
     val playerName = TextLabel(point.x, point.y, "Name: $name", Color.WHITE)
     val playerScore = TextLabel(point.x, point.y - 0.05f, "Score: 0",Color.WHITE)
     val userIcon = RigidSprite(playerIcon)

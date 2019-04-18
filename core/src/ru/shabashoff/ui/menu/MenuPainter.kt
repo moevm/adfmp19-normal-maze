@@ -72,6 +72,7 @@ class MenuPainter {
     }
 
     fun closePopup() {
+
         popupMenu.pop()!!.dispose()
     }
 

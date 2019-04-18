@@ -1,16 +1,19 @@
 package ru.shabashoff.game
 
+import com.badlogic.gdx.graphics.Color
 import ru.shabashoff.game.players.*
 import ru.shabashoff.primitives.IntPoint
 import ru.shabashoff.primitives.LineType
 import ru.shabashoff.primitives.MoveTo
 import ru.shabashoff.ui.UiUtils
+import ru.shabashoff.ui.elements.TextLabel
 import java.lang.IllegalStateException
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 class GameSession(val initPlayers: List<InitPlayer>) {
 
+    private lateinit var text: TextLabel
     private val W = 7
     private val H = 7
 
@@ -52,6 +55,7 @@ class GameSession(val initPlayers: List<InitPlayer>) {
         }
 
         curPlayer = players[0]
+
     }
 
 
@@ -143,6 +147,8 @@ class GameSession(val initPlayers: List<InitPlayer>) {
         curNumPlayer = (curNumPlayer + 1) % players.size
         curPlayer = players[curNumPlayer]
 
+
+        text = TextLabel(0.45f,0.10f, "${curPlayer.playerInit.name} move", Color.WHITE)
         if (curPlayer.isBot()) {
             executor.execute {
                 val bot: Bot = curPlayer as Bot
@@ -170,9 +176,6 @@ class GameSession(val initPlayers: List<InitPlayer>) {
                     throw IllegalStateException("Bot did illegal move!!!")
                 }
             }
-
-
-
             println("Bot moved!!!")
         }
     }

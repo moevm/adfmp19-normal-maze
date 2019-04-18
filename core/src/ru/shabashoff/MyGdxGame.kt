@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import ru.shabashoff.game.GameUtils
+import ru.shabashoff.statistic.PlayerStatistic
+import ru.shabashoff.statistic.StatisticService
 import ru.shabashoff.ui.UiUtils
 import ru.shabashoff.ui.menu.MenuPainter
 
@@ -33,6 +35,8 @@ class MyGdxGame : ApplicationAdapter() {
         menuPainter = MenuPainter()
 
         UiUtils.menuPainter = menuPainter
+
+        StatisticService.load()
     }
 
     override fun render() {

@@ -9,7 +9,10 @@ class PopUpStatistic:PopUpMenu() {
         print("x:$x y:$y w:$width h:$height")
 
         UiUtils.getStage().addActor(this)
+    }
 
+    override fun dispose() {
+        super.dispose()
     }
 
 }

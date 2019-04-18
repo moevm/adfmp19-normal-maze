@@ -15,9 +15,9 @@ class PopUpSettings : PopUpMenu() {
 
         UiUtils.getStage().addActor(this)
 
-        sound = DefaultTextButton(0.5f, 0.5f, 0.2f, 0.1f, "Sound") { UiUtils.menuPainter?.sound() }
-        exitToMainMenu = DefaultTextButton(0.5f, 0.35f, 0.2f, 0.1f, "Exit to Main Menu") { UiUtils.menuPainter?.exitToMainMenu() }
-        authorization = DefaultTextButton(0.5f, 0.65f, 0.2f, 0.1f, "authorization") { UiUtils.menuPainter?.authorization() }
+        sound = DefaultTextButton(0.5f, 0.5f, 0.4f, 0.1f, "Sound") { UiUtils.menuPainter?.sound() }
+        exitToMainMenu = DefaultTextButton(0.5f, 0.35f, 0.4f, 0.1f, "Exit to Main Menu") { UiUtils.menuPainter?.exitToMainMenu() }
+        authorization = DefaultTextButton(0.5f, 0.65f, 0.4f, 0.1f, "authorization") { UiUtils.menuPainter?.authorization() }
 
     }
 
