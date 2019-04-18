@@ -1,6 +1,7 @@
 package ru.shabashoff.ui.menu
 
 import ru.shabashoff.ui.menu.game.GameWithBots
+import ru.shabashoff.ui.menu.game.GameWithPlayers
 import ru.shabashoff.ui.menu.game.MenuInterface
 import ru.shabashoff.ui.menu.main.*
 import ru.shabashoff.ui.menu.popup.*
@@ -19,11 +20,18 @@ class MenuPainter {
         curMenu = StartMenu()
     }
 
-    fun testGame() {
+    fun botGame() {
         if (popupMenu.isNotEmpty()) return
 
         dispose()
         curMenu = GameWithBots()
+    }
+
+    fun playersGame() {
+        if (popupMenu.isNotEmpty()) return
+
+        dispose()
+        curMenu = GameWithPlayers((curMenu as ChooseName).getNames())
     }
 
     fun rules() {
