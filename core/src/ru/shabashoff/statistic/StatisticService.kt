@@ -1,10 +1,11 @@
 package ru.shabashoff.statistic
 
+import com.badlogic.gdx.Gdx
 import com.fasterxml.jackson.module.kotlin.*
 import java.io.File
 
 object StatisticService {
-    private val FILE: String = "./statistic.json"
+    private val FILE: String = "statistic.json"
     private val mapper = jacksonObjectMapper()
 
     var players: MutableList<PlayerStatistic> = ArrayList()
@@ -16,7 +17,7 @@ object StatisticService {
     }
 
     fun load() {
-        val file = File(FILE)
+        val file = Gdx.files.local(FILE).file()
 
         if (!file.isFile || !file.exists()) {
             players = ArrayList()
@@ -25,6 +26,6 @@ object StatisticService {
     }
 
     fun save() {
-        mapper.writeValue(File(FILE).outputStream(), players)
+        mapper.writeValue(Gdx.files.local(FILE).file().outputStream(), players)
     }
 }
