@@ -25,7 +25,7 @@ class DefaultTextButton(x: Float, y: Float, width: Float, height: Float, text: S
 
     companion object {
         fun getButtonStyle(): TextButton.TextButtonStyle {
-            return UiUtils.btnDefaultStyle
+            return UiUtils.st
         }
     }
 

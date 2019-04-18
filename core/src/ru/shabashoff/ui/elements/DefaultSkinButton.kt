@@ -56,7 +56,7 @@ class DefaultSkinButton(x: Float, y: Float, width: Float, height: Float, private
 
     companion object {
         fun getButtonStyle(): TextButton.TextButtonStyle {
-            return UiUtils.btnDefaultStyle
+            return UiUtils.st
         }
     }
 

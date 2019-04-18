@@ -29,6 +29,7 @@ class TextEdit : TextField {
     constructor(text: String) : super(text, getTextFieldStyle())
 
     init {
+
         UiUtils.getStage().addActor(this)
     }
 

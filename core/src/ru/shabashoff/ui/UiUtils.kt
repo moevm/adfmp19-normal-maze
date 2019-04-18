@@ -9,6 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import ru.shabashoff.ui.menu.MenuPainter
+import com.badlogic.gdx.Gdx.files
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+
 
 object UiUtils {
 
@@ -17,7 +20,7 @@ object UiUtils {
     private var width: Float = 0.0f
     private var height: Float = 0.0f
 
-    lateinit var btnDefaultStyle: TextButton.TextButtonStyle
+    lateinit var st: TextButton.TextButtonStyle
 
     var menuPainter: MenuPainter? = null
 
@@ -27,12 +30,18 @@ object UiUtils {
 
         textures.addRegions(TextureAtlas(Gdx.files.internal("sprites.atlas")))
 
-        btnDefaultStyle = TextButton.TextButtonStyle()
+        st = TextButton.TextButtonStyle()
 
-        val buttonDefaultFont = BitmapFont()
-        btnDefaultStyle.font = buttonDefaultFont
-        btnDefaultStyle.up = textures.getDrawable("BUTTON")
-        btnDefaultStyle.down = textures.getDrawable("BUTTON_PRESSED")
+
+        val fnt = BitmapFont()
+        val generator = FreeTypeFontGenerator(Gdx.files.internal("wt.ttf"))
+
+        var prm = FreeTypeFontGenerator.FreeTypeFontParameter()
+
+        prm.size = (prm.size * Gdx.graphics.density * 1.2).toInt()
+        st.font = generator.generateFont(prm)
+        st.up = textures.getDrawable("BUTTON")
+        st.down = textures.getDrawable("BUTTON_PRESSED")
     }
 
     fun calcX(x: Float, w: Float): Float {
