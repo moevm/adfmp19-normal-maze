@@ -55,7 +55,7 @@ class GameSession(val initPlayers: List<InitPlayer>) {
         }
 
         curPlayer = players[0]
-        text = TextLabel(0.45f,0.10f, "${curPlayer.playerInit.name} move", Color.WHITE)
+        text = TextLabel(0.45f, 0.10f, "${curPlayer.playerInit.name} move", Color.WHITE)
     }
 
 
@@ -140,7 +140,12 @@ class GameSession(val initPlayers: List<InitPlayer>) {
     }
 
     fun giftFounded() {
-        curPlayer.searchingGift = map.getGift()//TODO next gift
+        if (map.getGiftSize() <= 0) {
+            //TODO check win
+            return
+        }
+
+        curPlayer.searchingGift = map.getGift()
     }
 
     private fun nextPlayer() {

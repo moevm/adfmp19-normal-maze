@@ -159,6 +159,10 @@ class GameMap {
         return pr
     }
 
+    fun getGiftSize(): Int {
+        return prizes.size
+    }
+
     private fun isPointOnMap(p: Point): Boolean {
         return !(p.x < paddingX || p.y < paddingY || p.x > paddingX + widthMap || p.y > paddingY + heightMap)
     }
