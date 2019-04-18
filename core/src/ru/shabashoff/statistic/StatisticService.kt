@@ -1,11 +1,11 @@
 package ru.shabashoff.statistic
 
 import com.badlogic.gdx.Gdx
-import com.fasterxml.jackson.module.kotlin.*
-import java.io.File
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 
 object StatisticService {
-    private val FILE: String = "statistic.json"
+    private const val FILE: String = "statistic.json"
     private val mapper = jacksonObjectMapper()
 
     var players: MutableList<PlayerStatistic> = ArrayList()
